@@ -7,9 +7,11 @@ Window.title("PhotoShow")
 Window.geometry("1350x700")
 
 # to insert the icon on the window
-# Window.iconbitmap("assets/CraftingCook.ico")
+Window.iconbitmap("assets/PhotoShowIcon.ico")
 
 # remove the maximize button
 Window.resizable(0, 0)
+
+
 
 Window.mainloop()
