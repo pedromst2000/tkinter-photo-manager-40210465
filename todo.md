@@ -1,0 +1,76 @@
+User Stories - Requirements - Features
+
+
+ADMIN USER - Manage Users
+------------------
+[] - Should have a users list to be manage , each should be dynamic. 
+[] - Can change the roles of the user from unsigned to regular in the users list.
+[] - Can block an user from bad behavior (reported user) in the users list.
+
+
+ADMIN USER - Manage Categories
+------------------
+[] - Should have a categories list to be manage , each should be dynamic. 
+[] - Can add a new category in the categories list for the app.
+[] - Can delete a category in the categories list of the app.
+
+
+ADMIN USER - Manage Notifications
+------------------
+[] - Should have a list of options of each type of notifications to be configured.
+[] - Can choose the type of notification to be sent to the users (daily content, comment photos, favorite photos).
+
+
+ALL USERS - Authentication
+------------------
+[] - Should have a login page to be authenticated.
+[] - Should have a register page to be authenticated.
+[] - Can Sign In with email and password.
+[] - Can Sign Up with username, email and password.
+[] - Can Sign Out.
+[] - Should be possibile to navigate to register window from login window.
+[] - Should be possible to navigate to login window from register window.
+[] - Restrict access to the app if the user is not authenticated.
+[] - Restrict acess to some features, each only admin user can access - Manage Users, Manage Categories, Manage Notifications.
+[] - Unsigned User or non authenticated user can access only a preview of the photos each most likes (Top 5)
+
+
+ALL USERS - Profile
+--------------------
+[] - An user should have an avatar.
+[] - Should have the possibility of updating his avatar.
+[] - An user should have the possibility to chance his password access.
+[] - An user should have the possibility to delete his own account from the app.
+[] - Should have access to the dashboard window.
+
+
+ALL USERS - Manage Content
+-------------------
+[] - Add content with short description (max 150chars), date of published, a category associated and an image(Photo).
+[] - Delete content (only is possible to delete content created by the user).
+[] - Can update a content by updating or changing the image and/or description.
+
+
+ALL USERS - Filter Content
+------------------
+[] - Filter By user the catalog of content.
+[] - Filter By category the catalog of content.
+[] - Filter By date the catalog of content.
+[] - Filter By favorite the catalog of content.
+[] - Filter By most liked the catalog of content.
+
+
+ALL USERS - Interaction with the content 
+--------------------
+[] - Can add comment to a content
+[] - Can add a like to a content
+[] - Each Content should have a thread of comments.
+[] - Should sent a notification if a user interact.
+[] - The users can reply to previous comments.
+
+
+USER DASHBOARD
+------------------------
+[] - Should display the number of comments on the app.
+[] - Should display the total number of views of contents in the app.
+[] - Should display the number of contents created.
