@@ -65,7 +65,7 @@ ALL USERS - Interaction with the content
 [] - Can add comment to a content
 [] - Can add a like to a content
 [] - Each Content should have a thread of comments.
-[] - Should sent a notification if a user interact.
+[] - Should sent a notification if a user interact (reply of a comment)
 [] - The users can reply to previous comments.
 
 
