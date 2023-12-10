@@ -18,7 +18,7 @@ ADMIN USER - Manage Categories
 ADMIN USER - Manage Notifications
 ------------------
 [] - Should have a list of options of each type of notifications to be configured.
-[] - Can choose the type of notification to be sent to the users (daily content, comment photos, favorite photos).
+[] - Can choose the type of notification to be sent to the users (daily content, comment photos, view content).
 
 
 ALL USERS - Authentication
@@ -56,7 +56,6 @@ ALL USERS - Filter Content
 [] - Filter By user the catalog of content.
 [] - Filter By category the catalog of content.
 [] - Filter By date the catalog of content.
-[] - Filter By favorite the catalog of content.
 [] - Filter By most liked the catalog of content.
 
 
