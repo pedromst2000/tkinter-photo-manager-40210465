@@ -29,7 +29,7 @@ PhotoShow is a user-friendly desktop application developed with Tkinter, designe
 
 ### Data Architecture 📊
 
-![Data Architecture](images\modelo_dados.png)
+![Data Architecture](images/modelo_dados.png)
 
 The data architecture of PhotoShow is based on the relational database, with the following entities:
 
