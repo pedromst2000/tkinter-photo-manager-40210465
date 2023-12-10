@@ -1,6 +1,6 @@
 # PhotoShow: Your Personalized Photo Management Experience
 
-![PhotoShow](images\Logo.png)
+![PhotoShow](images/Logo.png)
 
 Welcome to PhotoShow, your go-to Tkinter-based photo manager app! 📸
 
