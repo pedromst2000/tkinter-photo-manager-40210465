@@ -32,7 +32,7 @@ ALL USERS - Authentication
 [] - Should be possible to navigate to login window from register window.
 [] - Restrict access to the app if the user is not authenticated.
 [] - Restrict acess to some features, each only admin user can access - Manage Users, Manage Categories, Manage Notifications.
-[] - Unsigned User or non authenticated user can access only a preview of the photos each most likes (Top 5)
+[] - Unsigned User can access only a preview of the photos each most likes (Top 5)
 
 
 ALL USERS - Profile
