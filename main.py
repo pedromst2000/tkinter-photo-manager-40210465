@@ -1,4 +1,7 @@
+import tkinter
+import tkinter.font
 from tkinter import *
+from tkinter import font
 from PIL import ImageTk, Image
 
 Window = Tk()
@@ -12,17 +15,28 @@ Window.iconbitmap("assets/PhotoShowIcon.ico")
 # remove the maximize button
 Window.resizable(0, 0)
 
-# canvas
-mainCanvas = Canvas(Window, width=1350, height=700)
+# Todo => Text Fonts 
 
-# to insert the image on the canvas
-mainImage = ImageTk.PhotoImage(Image.open("assets/images/Home_background.png"))
+# # canvas
+# mainCanvas = Canvas(Window, width=1350, height=700)
 
-# to insert the image on the canvas
-mainCanvas.create_image(0, 0, anchor=NW, image=mainImage)
+# # to insert the image on the canvas
+# mainImage = ImageTk.PhotoImage(Image.open("assets/images/Home_background.png"))
 
-# to insert the canvas on the window with pack method
-mainCanvas.pack()
+# # to insert the image on the canvas
+# mainCanvas.create_image(0, 0, anchor=NW, image=mainImage)
+
+# # to insert the canvas on the window with pack method
+# mainCanvas.pack()
+
+# llllsample_text = tkinter.Text(Window, height=10)
+# sample_text.pack()
+
+# # Create an object of type Font from tkinter.
+# Desired_font = tkinter.font.Font(family="Quicksand", size=20, weight="bold")
+# sample_text.configure(font=Desired_font)
+
+
 
 
 Window.mainloop()
