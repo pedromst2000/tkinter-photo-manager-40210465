@@ -1,10 +1,6 @@
-import tkinter
-import tkinter.font
 from tkinter import *
-from tkinter import font
 from PIL import ImageTk, Image
-from styles.colors import *
-
+from widgets.Button import _Button_
 
 Window = Tk()
 
@@ -17,22 +13,33 @@ Window.iconbitmap("assets/PhotoShowIcon.ico")
 # remove the maximize button
 Window.resizable(0, 0)
 
-# Todo => Text Fonts 
 
-# # canvas
+# canvas
 mainCanvas = Canvas(Window, width=1350, height=700)
 
-# # to insert the image on the canvas
-mainImage = ImageTk.PhotoImage(Image.open("assets/images/Home_background.png"))
-
 # to insert the image on the canvas
+mainImage = ImageTk.PhotoImage(Image.open("assets/images/main_background.png"))
+
 mainCanvas.create_image(0, 0, anchor=NW, image=mainImage)
 
+logoImage = ImageTk.PhotoImage(Image.open("assets/images/Logo.png"))
+logoImage = logoImage.resize((300, 300), Image.ANTIALIAS)
 
-square = mainCanvas.create_rectangle(0, 0, 1350, 700, fill=colors["secondary-300"])
 
-# insert the square on the canvas
-mainCanvas.place(x=0, y=0)
+mainCanvas.create_image(0, 0, anchor=NW, image=logoImage)
 
+# Button Widget
+_Button_(
+    width=18,
+    height=2,
+    text="Sign In",
+    fontSize=16,
+    window=mainCanvas,
+    placeX=600,
+    placeY=500,
+)
+
+
+mainCanvas.pack()
 
 Window.mainloop()
