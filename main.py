@@ -1,6 +1,10 @@
 from tkinter import *
 from PIL import ImageTk, Image
 from widgets.Button import _Button_
+from styles.colors import *
+from styles.fonts import *
+from windows.Authentication.loginWindow import login
+from widgets.Input import _Input_
 
 Window = Tk()
 
@@ -16,17 +20,31 @@ Window.resizable(0, 0)
 
 # canvas
 mainCanvas = Canvas(Window, width=1350, height=700)
+mainCanvas.place(x=0, y=0)
 
-# to insert the image on the canvas
-mainImage = ImageTk.PhotoImage(Image.open("assets/images/main_background.png"))
+mainImage = Image.open("assets/images/main_background.png")
+mainImage = mainImage.resize((1350, 700))
 
-mainCanvas.create_image(0, 0, anchor=NW, image=mainImage)
+mainImage = ImageTk.PhotoImage(mainImage)
 
-logoImage = ImageTk.PhotoImage(Image.open("assets/images/Logo.png"))
-logoImage = logoImage.resize((300, 300), Image.ANTIALIAS)
+mainCanvas.create_image(0, 0, image=mainImage, anchor=NW)
 
 
-mainCanvas.create_image(0, 0, anchor=NW, image=logoImage)
+logoImage = Image.open("assets/images/Logo.png")
+logoImage = logoImage.resize((600, 200))
+
+logoImage = ImageTk.PhotoImage(logoImage)
+
+mainCanvas.create_image(390, 50, image=logoImage, anchor=NW)
+
+sloganText = mainCanvas.create_text(
+    550,
+    300,
+    text="Every Pixel Tells a Tale",
+    font=(quickSandBold(25)),
+    fill=colors["accent-500"],
+    anchor=NW,
+)
 
 # Button Widget
 _Button_(
@@ -37,9 +55,8 @@ _Button_(
     window=mainCanvas,
     placeX=600,
     placeY=500,
+    event=lambda event: login(Window),
 )
 
-
-mainCanvas.pack()
 
 Window.mainloop()
