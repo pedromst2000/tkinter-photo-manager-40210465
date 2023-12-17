@@ -32,6 +32,7 @@ ALL USERS - Authentication
 [] - Should be possibile to navigate to register window from login window.
 [] - Should be possible to navigate to login window from register window.
 [] - Restrict access to the app if the user is not authenticated.
+[] - If the logged user is blocked should display a message and restrict access to the app , saying how long the user is blocked.
 [] - Restrict acess to some features, each only admin user can access - Manage Users, Manage Categories, Manage Notifications.
 [] - Unsigned User can access only a preview of the photos each most likes (Top 5)
 
