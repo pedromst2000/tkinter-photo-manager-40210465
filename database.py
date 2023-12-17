@@ -579,19 +579,11 @@ def init(
 
         file.close()
 
-    # initialize the database
-    get_users()
-    get_categories()
-    get_photos()
-    get_comments()
-
-    # return the database
-
     return {
-        "users": _users_,
-        "categories": _categories_,
-        "photos": _photos_,
-        "comments": _comments_,
+        "get_users": get_users,
+        "get_categories": get_categories,
+        "get_photos": get_photos,
+        "get_comments": get_comments,
         "create_user": create_user,
         "create_categories": create_categories,
         "create_photos": create_photos,
