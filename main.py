@@ -4,7 +4,6 @@ from widgets.Button import _Button_
 from styles.colors import *
 from styles.fonts import *
 from windows.Authentication.loginWindow import login
-from widgets.Input import _Input_
 
 Window = Tk()
 

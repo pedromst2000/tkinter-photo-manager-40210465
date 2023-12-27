@@ -1,5 +1,5 @@
 userID;username;email;password;avatar;role;isBlocked
-1;admin;admin@gmail.com;123admin;assets/images/profile_avatars/admin_avatar.jpg;admin;False
+1;admin;admin@gmail.com;123admin;assets/images/profile_avatars/default_avatar.jpg;admin;False
 2;pedromst;pedromst@gmail.com;123pedro;assets/images/profile_avatars/pedromst_avatar.png;regular;False
 3;joaoTT;JoaoTT@gmail.com;123joao;assets/images/profile_avatars/joaoTT_avatar.png;regular;True
 4;AnaKirk;anak@gmail.com;123ana;assets/images/profile_avatars/AnaKirk_avatar.jpg;regular;False
