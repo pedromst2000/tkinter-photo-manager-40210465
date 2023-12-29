@@ -123,9 +123,9 @@ def checkUnique(username: str, email: str) -> bool:
     return True  # if the username and email are unique, return True
 
 
-def get_user(email: str) -> User:
+def get_logged_user(email: str) -> User:
     """
-    Function to get a user by email
+    Function to get the logged user information (payload)
 
     :param email: str
 
@@ -143,7 +143,7 @@ def get_user(email: str) -> User:
     return None
 
 
-def save_avatar(email, avatar) -> bool:
+def save_avatar(email: str, avatar: str) -> bool:
     """
     Function to save the avatar of the user
 
