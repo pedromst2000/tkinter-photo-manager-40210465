@@ -1,9 +1,9 @@
-from tkinter import *
+from tkinter import Tk, Canvas, Button, NW
 from PIL import ImageTk, Image
-from widgets.Button import _Button_
 from styles.colors import *
 from styles.fonts import *
-from windows.Authentication.loginWindow import login
+from windows.Authentication.loginWindow import loginWindow
+from utils.widgets.button import on_enter, on_leave
 
 Window = Tk()
 
@@ -45,17 +45,25 @@ sloganText = mainCanvas.create_text(
     anchor=NW,
 )
 
-# Button Widget
-_Button_(
+
+signInButton = Button(
     width=18,
     height=2,
     text="Sign In",
-    fontSize=16,
-    window=mainCanvas,
-    placeX=600,
-    placeY=500,
-    event=lambda event: login(Window),
+    master=mainCanvas,
+    borderwidth=10,
+    font=quickSandBold(16),
+    background=colors["accent-300"],
+    bd=0,
+    highlightthickness=0,
+    activebackground=colors["accent-100"],
+    cursor="hand2",
 )
 
+
+signInButton.place(x=600, y=500)
+signInButton.bind("<Button-1>", lambda event: loginWindow(Window))
+signInButton.bind("<Enter>", lambda e: on_enter(e, signInButton))
+signInButton.bind("<Leave>", lambda e: on_leave(e, signInButton))
 
 Window.mainloop()
