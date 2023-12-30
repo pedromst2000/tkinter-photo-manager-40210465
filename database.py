@@ -1,3 +1,6 @@
+import os
+
+
 class Database:
     users = []
     categories = []
@@ -48,15 +51,20 @@ class Database:
 
         for line in lines:
             user = line.split(";")
+
+            # ignoring the first line
+            if user[0] == "userID":
+                continue
+
             self.users.append(
                 {
                     "userID": int(user[0]),  # integer
-                    "username": str(user[1]),  # string
-                    "email": str(user[2]),  # string
-                    "password": str(user[3]),  # string
-                    "avatar": str(user[4]),  # string
-                    "role": str(user[5]),  # string
-                    "isBlocked": (user[5]).strip("\n").replace(" ", "")
+                    "username": user[1],  # string
+                    "email": user[2],  # string
+                    "password": user[3],  # string
+                    "avatar": user[4],  # string
+                    "role": user[5],  # string
+                    "isBlocked": user[6].strip("\n").replace(" ", "")
                     == "True",  # boolean
                 }
             )
@@ -83,10 +91,15 @@ class Database:
 
         for line in lines:
             category = line.split(";")
+
+            # ignoring the first line
+            if category[0] == "categoryID":
+                continue
+
             self.categories.append(
                 {
-                    "categoryID": int(category[0]),  # integer
-                    "category": str(category[0]).strip("\n"),
+                    "categoryID": category[0],  # integer
+                    "category": category[0].strip("\n"),
                 }
             )
 
@@ -116,16 +129,21 @@ class Database:
 
         for line in lines:
             photo = line.split(";")
+
+            # ignoring the first line
+            if photo[0] == "photoID":
+                continue
+
             self.photos.append(
                 {
-                    "photoID": int(photo[0]),  # integer
-                    "description": str(photo[1]),  # string
-                    "publishedDate": str(photo[2]),  # string
-                    "image": str(photo[3]),  # string
-                    "likes": int(photo[4]),  # integer
-                    "rating": float(photo[5]),  # float
-                    "categoryID": int(photo[6]),  # integer
-                    "creatorID": int(photo[7].strip("\n")),  # integer
+                    "photoID": photo[0],  # integer
+                    "description": photo[1],  # string
+                    "publishedDate": photo[2],  # string
+                    "image": photo[3],  # string
+                    "likes": photo[4],  # integer
+                    "rating": photo[5],  # float
+                    "categoryID": photo[6],  # integer
+                    "creatorID": photo[7].strip("\n"),  # integer
                 }
             )
 
@@ -152,12 +170,17 @@ class Database:
 
         for line in lines:
             comment = line.split(";")
+
+            # ignoring the first line
+            if comment[0] == "commentID":
+                continue
+
             self.comments.append(
                 {
-                    "commentID": int(comment[0]),  # integer
-                    "authorID": int(comment[1]),  # integer
-                    "comment": str(comment[2]),  # string
-                    "photoID": int(comment[3].strip("\n")),  # integer
+                    "commentID": comment[0],  # integer
+                    "authorID": comment[1],  # integer
+                    "comment": comment[2],  # string
+                    "photoID": comment[3].strip("\n"),  # integer
                 }
             )
 
@@ -178,8 +201,10 @@ class Database:
         # add a new user to the database
         file = open("files/users.txt", "a", encoding="utf-8")
 
+        users = self.get_users()
+
         # getting the last user id
-        last_user_id = self.users[-1]["userID"]
+        last_user_id = users[-1]["userID"]
 
         # incrementing the last user id
         last_user_id += 1
@@ -187,24 +212,21 @@ class Database:
         # new user dictionary
         new_user = {
             "userID": last_user_id,
-            "username": user["username"],
-            "email": user["email"],
-            "password": user["password"],
-            "avatar": user["avatar"],
-            "role": user["role"],
-            "isBlocked": user["isBlocked"],
+            "username": user.username,
+            "email": user.email,
+            "password": user.password,
+            "avatar": user.avatar,
+            "role": user.role,
+            "isBlocked": user.isBlocked,
         }
 
         # appending the new user to the users list
         self.users.append(new_user)
 
         file.write(
-            f"{new_user['userID']};{new_user['username']};{new_user['email']};{new_user['password']};{new_user['avatar']};{new_user['role']};{new_user['isBlocked']}\n"
+            f"\n{new_user['userID']};{new_user['username']};{new_user['email']};{new_user['password']};{new_user['avatar']};{new_user['role']};{new_user['isBlocked']}"
         )
-
         file.close()
-
-        return new_user
 
     def create_category(
         self, category: dict
@@ -220,8 +242,10 @@ class Database:
 
         file = open("files/categories.txt", "a", encoding="utf-8")
 
+        categories = self.get_categories()
+
         # getting the last category id
-        last_category_id = self.categories[-1]["categoryID"]
+        last_category_id = categories[-1]["categoryID"]
 
         # incrementing the last category id
         last_category_id += 1
@@ -229,17 +253,15 @@ class Database:
         # new category dictionary
         new_category = {
             "categoryID": last_category_id,
-            "category": category["category"],
+            "category": category.category,
         }
 
         # appending the new category to the categories list
         self.categories.append(new_category)
 
-        file.write(f"{new_category['categoryID']};{new_category['category']}\n")
+        file.write(f"\n{new_category['categoryID']};{new_category['category']}")
 
         file.close()
-
-        return new_category
 
     def create_photo(self, photo: dict) -> None:  # add a new photo to the database
         """
@@ -253,8 +275,10 @@ class Database:
 
         file = open("files/photos.txt", "a", encoding="utf-8")
 
+        photos = self.get_photos()
+
         # getting the last photo id
-        last_photo_id = self.photos[-1]["photoID"]
+        last_photo_id = photos[-1]["photoID"]
 
         # incrementing the last photo id
         last_photo_id += 1
@@ -262,13 +286,13 @@ class Database:
         # new photo dictionary
         new_photo = {
             "photoID": last_photo_id,
-            "description": photo["description"],
-            "publishedDate": photo["publishedDate"],
-            "image": photo["image"],
-            "likes": photo["likes"],
-            "rating": photo["rating"],
-            "categoryID": photo["categoryID"],
-            "creatorID": photo["creatorID"],
+            "description": photo.description,
+            "publishedDate": photo.publishedDate,
+            "image": photo.image,
+            "likes": photo.likes,
+            "rating": photo.rating,
+            "categoryID": photo.categoryID,
+            "creatorID": photo.creatorID,
         }
 
         # appending the new photo to the photos list
@@ -279,8 +303,6 @@ class Database:
         )
 
         file.close()
-
-        return new_photo
 
     def create_comment(
         self, comment: dict
@@ -296,8 +318,10 @@ class Database:
 
         file = open("files/comments.txt", "r", encoding="utf-8")
 
+        comments = self.get_comments()
+
         # getting the last comment id
-        last_comment_id = self.comments[-1]["commentID"]
+        last_comment_id = comments[-1]["commentID"]
 
         # incrementing the last comment id
         last_comment_id += 1
@@ -305,9 +329,9 @@ class Database:
         # new comment dictionary
         new_comment = {
             "commentID": last_comment_id,
-            "authorID": comment["authorID"],
-            "comment": comment["comment"],
-            "photoID": comment["photoID"],
+            "authorID": comment.authorID,
+            "comment": comment.comment,
+            "photoID": comment.photoID,
         }
 
         self.comments.append(new_comment)
@@ -317,8 +341,6 @@ class Database:
         )
 
         file.close()
-
-        return new_comment
 
     def update_user(self, user: dict) -> None:  # update a user in the database
         """
