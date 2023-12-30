@@ -24,17 +24,17 @@ ADMIN USER - Manage Notifications
 
 ALL USERS - Authentication
 ------------------
-[] - Should have a login page to be authenticated.
-[] - Should have a register page to be authenticated.
-[] - Can Sign In with email and password.
-[] - Can Sign Up with username, email and password.
+[X] - Should have a login page to be authenticated.
+[X] - Should have a register page to be authenticated.
+[X] - Can Sign In with email and password.
+[X] - Can Sign Up with username, email and password.
 [] - Can Sign Out.
-[] - Should be possibile to navigate to register window from login window.
-[] - Should be possible to navigate to login window from register window.
-[] - Restrict access to the app if the user is not authenticated.
+[X] - Should be possibile to navigate to register window from login window.
+[X] - Should be possible to navigate to login window from register window.
+[X] - Restrict access to the app if the user is not authenticated.
 [] - If the logged user is blocked should display a message and restrict access to the app , saying how long the user is blocked.
-[] - Restrict acess to some features, each only admin user can access - Manage Users, Manage Categories, Manage Notifications.
-[] - Unsigned User can access only a preview of the photos each most likes (Top 5)
+[] - Restrict acess to some features, each only admin can access - Manage Users, Manage Categories, Manage Notifications.
+[] - Unsigned User can access all the features but have limited access in the catalog of content, each means, can only view the feature photos (top 5 - most liked photos)
 
 
 ALL USERS - Profile
