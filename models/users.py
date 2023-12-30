@@ -28,45 +28,6 @@ def login(email: str, password: str) -> User:
     return None  # if the email doesn't exist, return None
 
 
-def checkLoggedUserRole(email: str) -> str:
-    """
-    Function to check the role of the logged user
-
-    :param email: str
-
-    :return: str
-
-    """
-    db = Database(users=[], categories=[], photos=[], comments=[])
-    users = db.get_users()
-
-    for user in users:
-        if user["email"] == email:  # if the email exists in the database
-            return user["role"]  # return the role of the user
-
-    return None  # if the email doesn't exist in the database, return None
-
-
-def checkLoggedUserIsBlocked(email: str) -> bool:
-    """
-    Function to check if the logged user is blocked
-
-    :param email: str
-
-    :return: bool
-
-    """
-
-    db = Database(users=[], categories=[], photos=[], comments=[])
-    users = db.get_users()
-
-    for user in users:
-        if user["email"] == email:  # if the email exists in the database
-            return user["isBlocked"]  # return the isBlocked value of the user
-
-    return None  # if the email doesn't exist in the database, return None
-
-
 # add a new user to the database
 def register(
     username: str,
@@ -88,7 +49,7 @@ def register(
         username,
         email,
         password,
-        "regular",
+        "unsigned",
         "assets/images/profile_avatars/default_avatar.jpg",
         False,
     )
@@ -97,13 +58,11 @@ def register(
     return True  # return True if the user was created successfully
 
 
-# Checking if the username or email is unique
-def checkUnique(username: str, email: str) -> bool:
+def checkSignUpUsername(username: str) -> bool:
     """
-    Function to check if the username or email is unique
+    Function to check if the username is unique
 
     :param username: str
-    :param email: str
 
     :return: bool
 
@@ -111,19 +70,51 @@ def checkUnique(username: str, email: str) -> bool:
     db = Database(users=[], categories=[], photos=[], comments=[])
     users = db.get_users()
 
-    username = username.lower()  # convert the username to lowercase
-    email = email.split("@")[0].lower()  # convert the email to lowercase
+    # validation for comparing with case insensitive usernames :
 
-    email = "@".join(email)  # join the email back together
+    #  Not accepting case insensitive usernames
+    # => PEDROMST = pedromst  - will be the same
+
+    _username_ = username.lower()  # to make the username case insensitive
 
     for user in users:
-        if user["username"].lower() == username or user["email"].lower() == email:
-            return False  # if the username or email already exists, return False
+        if user["username"].lower() == _username_:
+            return False  # return False if the username isn't unique
 
-    return True  # if the username and email are unique, return True
+    return True  # return True if the username is unique
 
 
-def get_logged_user(email: str) -> User:
+def checkSignUpEmail(email: str) -> bool:
+    """
+    Function to check if the email is unique
+
+    :param email: str
+
+    :return: bool
+
+    """
+
+    db = Database(users=[], categories=[], photos=[], comments=[])
+    users = db.get_users()
+
+    # validation for comparing with case insensitive emails :
+
+    #  Not accepting case insensitive emails
+    # => PEDROMST@GMAIL.COM = pedromst@gmail.com  - will be the same
+
+    local_part, domain_part = email.split("@")
+    local_part = local_part.lower()  # Convert the entire local part to lowercase
+
+    _email_ = f"{local_part}@{domain_part}"
+
+    for user in users:
+        if user["email"].lower() == _email_.lower():
+            return False  # return False if the email isn't unique
+
+    return True  # return True if the email is unique
+
+
+def getUserInfo(email: str) -> User:
     """
     Function to get the logged user information (payload)
 
@@ -143,7 +134,7 @@ def get_logged_user(email: str) -> User:
     return None
 
 
-def save_avatar(email: str, avatar: str) -> bool:
+def saveAvatar(email: str, avatar: str) -> bool:
     """
     Function to save the avatar of the user
 
@@ -176,7 +167,7 @@ def save_avatar(email: str, avatar: str) -> bool:
     return False  # return False if the avatar wasn't updated successfully
 
 
-def change_password(email: str, newPassword: str) -> bool:
+def changePassword(email: str, newPassword: str) -> bool:
     """
     Function to change the password of the user
 
@@ -207,7 +198,7 @@ def change_password(email: str, newPassword: str) -> bool:
     return False  # return False if the password wasn't updated successfully
 
 
-def delete_account(email: str) -> bool:
+def deleteAccount(email: str) -> bool:
     """
     Function to delete the account of the user
 
