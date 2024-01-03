@@ -76,6 +76,7 @@ pip install Pillow
 python main.py
 ```
 
-Author: [Pedro Teixeira](https://github.com/pedromst2000)
-
 ### THAT'S IT! 🎉 Now you can enjoy PhotoShow and all its features!
+
+
+Author: [Pedro Teixeira](https://github.com/pedromst2000)
