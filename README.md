@@ -1,5 +1,3 @@
-# PhotoShow: Your Personalized Photo Management Experience
-
 ![PhotoShow](images/Logo.png)
 
 Welcome to PhotoShow, your go-to Tkinter-based photo manager app! 📸
@@ -77,5 +75,7 @@ pip install Pillow
 ```bash
 python main.py
 ```
+
+Author: [Pedro Teixeira](https://github.com/pedromst2000)
 
 ### THAT'S IT! 🎉 Now you can enjoy PhotoShow and all its features!
