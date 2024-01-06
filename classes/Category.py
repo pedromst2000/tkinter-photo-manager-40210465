@@ -8,12 +8,15 @@ class Category:
     # constructor
     def __init__(
         self,
-        category: str,
+        category: str = "",
     ) -> None:
         """
         constructor of the Class Category
 
-        :param category: str
+        optional fields if nothing is passed, the default value is used
+
+        :param category: str (optional, default="")
+
 
         :return: None
         """
@@ -29,7 +32,7 @@ class Category:
 
         """
 
-        db = Database(users=[], categories=[], photos=[], comments=[])
+        db = Database(users=[], categories=[], photos=[], comments=[], albuns=[])
         db.create_category(self)
 
     def delete_category(self):
@@ -40,5 +43,5 @@ class Category:
 
         """
 
-        db = Database(users=[], categories=[], photos=[], comments=[])
+        db = Database(users=[], categories=[], photos=[], comments=[], albuns=[])
         db.delete_category(self)

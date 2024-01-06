@@ -1,11 +1,10 @@
-import os
-
-
 class Database:
     users = []
     categories = []
     photos = []
     comments = []
+    albuns = []
+    favorites = []
 
     # constructor
     def __init__(
@@ -14,6 +13,8 @@ class Database:
         categories: list = [],
         photos: list = [],
         comments: list = [],
+        albuns: list = [],
+        favorites: list = [],
     ):
         """
         Initialize the database.
@@ -22,12 +23,16 @@ class Database:
         :param categories: List of category objects representing the categories in the database.
         :param photos: List of photo objects representing the photos in the database.
         :param comments: List of comment objects representing the comments in the database.
+        :param albuns: List of album objects representing the albums in the database.
+        :param favorites: List of favorite objects representing the favorites in the database.
         """
 
         self.users = users
         self.categories = categories
         self.photos = photos
         self.comments = comments
+        self.albuns = albuns
+        self.favorites = favorites
 
     # methods
     def get_users(self) -> list:
@@ -41,6 +46,7 @@ class Database:
         - password: User's password (str).
         - avatar: File path or URL for user's avatar (str).
         - role: User's role ('admin', 'regular', 'unsigned') (str).
+        - followers: user's followers (int).
         - isBlocked: Indicates if the user is blocked (bool).
 
         :return: List of user objects representing the users in the database.
@@ -64,7 +70,8 @@ class Database:
                     "password": user[3],  # string
                     "avatar": user[4],  # string
                     "role": user[5],  # string
-                    "isBlocked": user[6].strip("\n").replace(" ", "")
+                    "followers": int(user[6]),  # integer
+                    "isBlocked": user[7].strip("\n").replace(" ", "")
                     == "True",  # boolean
                 }
             )
@@ -98,7 +105,7 @@ class Database:
 
             self.categories.append(
                 {
-                    "categoryID": category[0],  # integer
+                    "categoryID": int(category[0]),  # integer
                     "category": category[0].strip("\n"),
                 }
             )
@@ -117,9 +124,11 @@ class Database:
         - publishedDate: Published date of the photo (str).
         - image: File path or URL for the photo image (str).
         - likes: Number of likes for the photo (int).
+        - views: Number of views for the photo (int).
         - rating: Rating of the photo (float).
         - categoryID: Category ID of the photo (int).
         - creatorID: Creator ID of the photo (int).
+        - albumID: Album ID of the photo each belongs to (int).
 
         :return: List of photo objects representing the photos in the database.
         """
@@ -136,14 +145,16 @@ class Database:
 
             self.photos.append(
                 {
-                    "photoID": photo[0],  # integer
+                    "photoID": int(photo[0]),  # integer
                     "description": photo[1],  # string
                     "publishedDate": photo[2],  # string
                     "image": photo[3],  # string
-                    "likes": photo[4],  # integer
+                    "likes": int(photo[4]),  # integer
+                    "views": int(photo[5]),  # integer
                     "rating": photo[5],  # float
                     "categoryID": photo[6],  # integer
-                    "creatorID": photo[7].strip("\n"),  # integer
+                    "creatorID": photo[7],  # integer
+                    "albumID": photo[8].strip("\n"),  # integer
                 }
             )
 
@@ -177,7 +188,7 @@ class Database:
 
             self.comments.append(
                 {
-                    "commentID": comment[0],  # integer
+                    "commentID": int(comment[0]),  # integer
                     "authorID": comment[1],  # integer
                     "comment": comment[2],  # string
                     "photoID": comment[3].strip("\n"),  # integer
@@ -187,6 +198,74 @@ class Database:
         file.close()
 
         return self.comments
+
+    def get_albuns(self) -> list:
+        """
+        Retrieve album data from 'albuns.txt' and return a list of album objects.
+
+        Each album object includes:
+        - albumID: Unique identifier for the album (int).
+        - name: Name of the album (str).
+        - creatorID: Creator ID of the album (int).
+
+        :return: List of album objects representing the albums in the database.
+        """
+
+        file = open("files/albuns.txt", "r", encoding="utf-8")
+
+        lines = file.readlines()
+
+        for line in lines:
+            album = line.split(";")
+
+            # ignoring the first line
+            if album[0] == "albumID":
+                continue
+
+            self.albuns.append(
+                {
+                    "albumID": int(album[0]),  # integer
+                    "name": album[1],  # string
+                    "creatorID": album[2].strip("\n"),  # integer
+                }
+            )
+
+        file.close()
+
+        return self.albuns
+
+    def get_favorites(self) -> list:
+        """
+        Retrieve favorite data from 'favorites.txt' and return a list of favorite objects.
+
+        Each favorite object includes:
+        - albumID: Unique identifier for the album (int).
+        - userID: User ID of the user (int).
+
+        :return: List of favorite objects representing the favorites in the database.
+        """
+
+        file = open("files/favorites.txt", "r", encoding="utf-8")
+
+        lines = file.readlines()
+
+        for line in lines:
+            favorite = line.split(";")
+
+            # ignoring the first line
+            if favorite[0] == "albumID":
+                continue
+
+            self.favorites.append(
+                {
+                    "albumID": int(favorite[0]),  # integer
+                    "userID": favorite[1].strip("\n"),  # integer
+                }
+            )
+
+            file.close()
+
+            return self.favorites
 
     def create_user(self, user: dict) -> None:  # add a new user to the database
         """
@@ -217,6 +296,7 @@ class Database:
             "password": user.password,
             "avatar": user.avatar,
             "role": user.role,
+            "followers": user.followers,
             "isBlocked": user.isBlocked,
         }
 
@@ -224,7 +304,7 @@ class Database:
         self.users.append(new_user)
 
         file.write(
-            f"\n{new_user['userID']};{new_user['username']};{new_user['email']};{new_user['password']};{new_user['avatar']};{new_user['role']};{new_user['isBlocked']}"
+            f"\n{new_user['userID']};{new_user['username']};{new_user['email']};{new_user['password']};{new_user['avatar']};{new_user['role']};{new_user['followers']};{new_user['isBlocked']}"
         )
         file.close()
 
@@ -290,6 +370,7 @@ class Database:
             "publishedDate": photo.publishedDate,
             "image": photo.image,
             "likes": photo.likes,
+            "views": photo.views,
             "rating": photo.rating,
             "categoryID": photo.categoryID,
             "creatorID": photo.creatorID,
@@ -299,7 +380,7 @@ class Database:
         self.photos.append(new_photo)
 
         file.write(
-            f"{new_photo['photoID']};{new_photo['description']};{new_photo['publishedDate']};{new_photo['image']};{new_photo['likes']};{new_photo['rating']};{new_photo['categoryID']};{new_photo['creatorID']}\n"
+            f"{new_photo['photoID']};{new_photo['description']};{new_photo['publishedDate']};{new_photo['image']};{new_photo['likes']};{new_photo['views']};{new_photo['rating']};{new_photo['categoryID']};{new_photo['creatorID']}\n"
         )
 
         file.close()
@@ -339,6 +420,76 @@ class Database:
         file.write(
             f"{new_comment['commentID']};{new_comment['authorID']};{new_comment['comment']};{new_comment['photoID']}\n"
         )
+
+        file.close()
+
+    def create_album(self, album: dict) -> None:  # add a new album to the database
+        """
+        Create a new album and add it to the database.
+
+        :param album: Dictionary containing the album data.
+
+        :return: Dictionary containing the album data.
+
+        """
+
+        file = open("files/albuns.txt", "a", encoding="utf-8")
+
+        albuns = self.get_albuns()
+
+        # getting the last album id
+        last_album_id = albuns[-1]["albumID"]
+
+        # incrementing the last album id
+        last_album_id += 1
+
+        # new album dictionary
+
+        new_album = {
+            "albumID": last_album_id,
+            "name": album.name,
+            "creatorID": album.creatorID,
+        }
+
+        self.albuns.append(new_album)
+
+        file.write(
+            f"{new_album['albumID']};{new_album['name']};{new_album['creatorID']}\n"
+        )
+
+        file.close()
+
+    def create_favorite(
+        self, favorite: dict
+    ) -> None:  # add a new favorite album to the database
+        """
+        Create a new favorite album and add it to the database.
+
+        :param favorite: Dictionary containing the favorite album data.
+
+        :return: Dictionary containing the favorite album data.
+
+        """
+
+        file = open("files/favorites.txt", "a", encoding="utf-8")
+
+        favorites = self.get_favorites()
+
+        # getting the last favorite id
+        last_favorite_id = favorites[-1]["albumID"]
+
+        # incrementing the last favorite id
+        last_favorite_id += 1
+
+        # new favorite dictionary
+        new_favorite = {
+            "albumID": last_favorite_id,
+            "userID": favorite.userID,
+        }
+
+        self.favorites.append(new_favorite)
+
+        file.write(f"{new_favorite['albumID']};{new_favorite['userID']}\n")
 
         file.close()
 
@@ -399,6 +550,34 @@ class Database:
         file.close()
 
         return photo
+
+    def update_album(self, album: dict) -> None:  # update a album in the database
+        """
+        Update a album in the database.
+
+        :param album: Dictionary containing the album data.
+
+        :return: Dictionary containing the album data.
+        """
+
+        file = open("files/albuns.txt", "r", encoding="utf-8")
+
+        lines = file.readlines()
+
+        file.close()
+
+        file = open("files/albuns.txt", "w+", encoding="utf-8")
+
+        for line in lines:
+            if line.split(";")[0] != album.albumID:
+                file.write(line)
+
+            else:
+                file.write(line)
+
+        file.close()
+
+        return album
 
     def delete_category(
         self, category: dict
@@ -475,6 +654,33 @@ class Database:
 
         for line in lines:
             if line.split(";")[0] != user.userID:
+                file.write(line)
+
+            else:
+                file.write(line)
+
+        file.close()
+    
+    def delete_favorite(self, favorite: dict) -> None:
+        """
+        Delete a favorite album from the database.
+
+        :param favorite: Dictionary containing the favorite album data.
+
+        :return: Dictionary containing the favorite data.
+
+        """
+
+        file = open("files/favorites.txt", "r", encoding="utf-8")
+
+        lines = file.readlines()
+
+        file.close()
+
+        file = open("files/favorites.txt", "w+", encoding="utf-8")
+
+        for line in lines:
+            if line.split(";")[0] != favorite.albumID:
                 file.write(line)
 
             else:

@@ -10,16 +10,18 @@ class Comment:
     # constructor
     def __init__(
         self,
-        authorID: int,
-        comment: str,
-        photoID: int,
+        authorID: int = 0,
+        comment: str = "",
+        photoID: int = 0,
     ) -> None:
         """
         constructor of the Class Comment
 
-        :param authorID: int
-        :param comment: str
-        :param photoID: int
+        optional fields if nothing is passed, the default value is used
+
+        :param authorID: int (optional, default=0)
+        :param comment: str (optional, default="")
+        :param photoID: int (optional, default=0)
 
         :return: None
         """
@@ -29,6 +31,20 @@ class Comment:
         self.photoID = photoID
 
     # methods
+
+    def get_comments(self):
+        """
+        Method to get all instances of the Class Comment
+
+        :return: None
+
+        """
+
+        db = Database(
+            users=[], categories=[], photos=[], comments=[], albuns=[], favorites=[]
+        )
+        return db.get_comments()
+
     def add_comment(self):
         """
         Method to add new instance of the Class Comment
@@ -37,5 +53,7 @@ class Comment:
 
         """
 
-        db = Database(users=[], categories=[], photos=[], comments=[])
+        db = Database(
+            users=[], categories=[], photos=[], comments=[], albuns=[], favorites=[]
+        )
         db.create_comment(self)

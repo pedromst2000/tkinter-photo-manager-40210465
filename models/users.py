@@ -1,4 +1,3 @@
-from database import Database
 from classes.User import User
 
 
@@ -12,9 +11,8 @@ def login(email: str, password: str) -> User:
     :return: User
     """
 
-    # the class Database takes a list of users as a parameter since the constructor takes a list of users as a parameter (self, users)
-    db = Database(users=[], categories=[], photos=[], comments=[])
-    users = db.get_users()
+    # accessing the Class User and calling the method get_users()
+    users = User().get_users()
 
     for user in users:
         # check if the email exists
@@ -45,15 +43,15 @@ def register(
 
     """
     # if the email and the username doesn't exist, create the user
-    user = User(
+    User(
         username,
         email,
         password,
         "unsigned",
+        0,
         "assets/images/profile_avatars/default_avatar.jpg",
         False,
-    )
-    user.add_user()  # add new instance of the user to the database
+    ).add_user()  # add new instance of the user to the database
 
     return True  # return True if the user was created successfully
 
@@ -67,8 +65,8 @@ def checkSignUpUsername(username: str) -> bool:
     :return: bool
 
     """
-    db = Database(users=[], categories=[], photos=[], comments=[])
-    users = db.get_users()
+
+    users = User().get_users()
 
     # validation for comparing with case insensitive usernames :
 
@@ -94,8 +92,7 @@ def checkSignUpEmail(email: str) -> bool:
 
     """
 
-    db = Database(users=[], categories=[], photos=[], comments=[])
-    users = db.get_users()
+    users = User().get_users()
 
     # validation for comparing with case insensitive emails :
 
@@ -114,114 +111,93 @@ def checkSignUpEmail(email: str) -> bool:
     return True  # return True if the email is unique
 
 
-def getUserInfo(email: str) -> User:
+def getUserInfo(userID: int) -> User:
     """
     Function to get the logged user information (payload)
 
-    :param email: str
+    :param userID: int
 
     :return: User
 
     """
 
-    db = Database(users=[], categories=[], photos=[], comments=[])
-    users = db.get_users()
+    users = User().get_users()
 
     for user in users:
-        if user["email"] == email:
+        if user["userID"] == userID:
             return user
 
     return None
 
 
-def saveAvatar(email: str, avatar: str) -> bool:
+def saveAvatar(userID: int, avatar: str) -> bool:
     """
     Function to save the avatar of the user
 
-    :param email: str
+    :param userID: int
     :param avatar: str
 
     :return: bool
 
     """
 
-    db = Database(users=[], categories=[], photos=[], comments=[])
-    users = db.get_users()
+    users = User().get_users()
 
     for user in users:
-        if user["email"] == email:  # if the email exists in the database
+        if user["userID"] == userID:  # if the email exists in the database
             user[
                 "avatar"
             ] = f"assets/images/Profile/{avatar}"  # update the avatar of the user
-            user = User(
-                user["username"],
-                user["email"],
-                user["password"],
-                user["role"],
+            User(
                 user["avatar"],
-                user["isBlocked"],
-            )
-            user.update_user()  # update the user in the database
+            ).update_user()  # update the user in the database
+
             return True  # return True if the avatar was updated successfully
 
     return False  # return False if the avatar wasn't updated successfully
 
 
-def changePassword(email: str, newPassword: str) -> bool:
+def changePassword(userID: int, newPassword: str) -> bool:
     """
     Function to change the password of the user
 
-    :param email: str
+    :param userID: int
     :param newPassword: str
 
     :return: bool
 
     """
 
-    db = Database(users=[], categories=[], photos=[], comments=[])
-    users = db.get_users()
+    users = User().get_users()
 
     for user in users:
-        if user["email"] == email:  # if the email exists in the database
+        if user["userID"] == userID:  # if the email exists in the database
             user["password"] = newPassword  # update the password of the user
-            user = User(
-                user["username"],
-                user["email"],
+            User(
                 user["password"],
-                user["role"],
-                user["avatar"],
-                user["isBlocked"],
-            )
-            user.update_user()  # update the user in the database
+            ).update_user()  # update the user in the database
+
             return True  # return True if the password was updated successfully
 
     return False  # return False if the password wasn't updated successfully
 
 
-def deleteAccount(email: str) -> bool:
+def deleteAccount(userID: int) -> bool:
     """
     Function to delete the account of the user
 
-    :param email: str
+    :param userID: int
 
     :return: bool
 
     """
 
-    db = Database(users=[], categories=[], recipes=[], ingredients=[])
-    users = db.get_users()
+    users = User().get_users()
 
     for user in users:
-        if user["email"] == email:  # if the email exists in the database
-            user = User(
-                user["username"],
-                user["email"],
-                user["password"],
-                user["role"],
-                user["avatar"],
-                user["isBlocked"],
-            )
-            user.delete_user()  # delete the user from the database
+        if user["userID"] == userID:
+            User().delete_user()  # delete the user from the database
+
             return True  # return True if the user was deleted successfully
 
     return False  # return False if the user wasn't deleted successfully
