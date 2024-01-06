@@ -19,8 +19,6 @@ PhotoShow is a user-friendly desktop application developed with Tkinter, designe
 
 `Album Creation`: Easily organize your photos into personalized albums, keeping your memories neatly sorted.
 
-`Visual Timeline`: Explore your memories through a chronological timeline, reliving each moment in the order it occurred.
-
 `Themed Collections`: Discover themed collections such as Travel Adventures, Nature, Sports, and Art, intelligently categorized for a more enjoyable browsing experience.
 
 `Threaded Comments`: Engage with others and share your thoughts on photos. The threaded comment feature allows for meaningful discussions, turning your memories into shared experiences.
@@ -39,6 +37,9 @@ The data architecture of PhotoShow is based on the relational database, with the
 
 `categories`: stores the category's data, such as the category's name and description.
 
+`favorites`: stores the user's favorite albums.
+
+`albums`: stores the album's data, such as the album's name and the user who created the album.    
 
 ### Getting Started 🚀
 
@@ -69,6 +70,8 @@ PhotoShow requires only one dependency, `Pillow`, which can be installed using t
 ```bash
 pip install Pillow
 ```
+
+`!! Note`: Without the `Pillow` dependency, the app may crash when trying to display images.
 
 * Then run the following command in the `terminal` to start the app:
 
