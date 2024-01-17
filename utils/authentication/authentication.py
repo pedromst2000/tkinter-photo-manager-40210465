@@ -43,6 +43,9 @@ def checkUsername(username: str) -> bool:
     if not regex.match(r"^[a-zA-Z0-9_.-]+$", username):
         return False  # if dont match the pattern, return False
 
+    if regex.match(r"^[0-9]+$", username):
+        return False 
+
     return True  # if match the pattern, return True
 
 
