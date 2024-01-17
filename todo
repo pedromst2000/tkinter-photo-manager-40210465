@@ -3,6 +3,10 @@ User Stories - Requirements - Features
 -- datetime para datas
 -- datepicker para datas
 
+## Others
+
+[] - Add Read Guidelines
+
 ## ADMIN USER - Manage Users
 
 [] - Should have a users list to be manage , each should be dynamic.
@@ -35,12 +39,13 @@ favorite album - new photo added to a favorite album
 [X] - Should have a register page to be authenticated.
 [X] - Can Sign In with email and password.
 [X] - Can Sign Up with username, email and password.
-[] - Can Sign Out.
+[X] - Can Sign Out.
 [X] - Should be possibile to navigate to register window from login window.
 [X] - Should be possible to navigate to login window from register window.
 [X] - Restrict access to the app if the user is not authenticated.
-[] - If the logged user is blocked should display a message and restrict access to the app , saying how long the user is blocked.
-[] - Restrict acess to some features, each only admin can access - Manage Users, Manage Categories, Manage Notifications.
+[] - If the logged user is blocked should display an Account Suspension Notice.
+[] - Blocked User should have the possibility to contact the admin to try unblock the account.
+[X] - Restrict acess to some features, each only admin can access - Manage Users, Manage Categories, Manage Notifications.
 [] - Unsigned User can access all the features but have limited access in the catalog of content, each means, can only view the feature photos (top 5 - most liked photos)
 
 ## ALL USERS - Profile
@@ -61,26 +66,27 @@ favorite album - new photo added to a favorite album
 [] - An user should be possible to create an album of photos.
 [] - Should display "gallery" of random photos in the catalog.
 [] - Should be possible to see the detail of a clicked photo from the "gallery" :
- - the photo (image)
- - number views
- - number likes
- - number comments
- - author of the photo
- - button (like)
- - button ( add comment )
- - button (see setail of the photo)
-[] - Display the detail of the photo:
- - the photo (image)
- - number views
- - number likes
- - description
- - number comments
- - author of the photo
- - button (like)
- - button ( add comment )
- - see threat of comments
-[] - Delete content (only is possible to delete content created by the user). - delete photo from an album
-[] - Can update a content by updating or changing the image and/or description. - update photo from an album
+
+- the photo (image)
+- number views
+- number likes
+- number comments
+- author of the photo
+- button (like)
+- button ( add comment )
+- button (see setail of the photo)
+  [] - Display the detail of the photo:
+- the photo (image)
+- number views
+- number likes
+- description
+- number comments
+- author of the photo
+- button (like)
+- button ( add comment )
+- see threat of comments
+  [] - Delete content (only is possible to delete content created by the user). - delete photo from an album
+  [] - Can update a content by updating or changing the image and/or description. - update photo from an album
 
 ## ALL USERS - Filter Content
 

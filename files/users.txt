@@ -4,3 +4,4 @@ userID;username;email;password;avatar;role;followers;isBlocked
 3;joaoTT;JoaoTT@gmail.com;123joao;assets/images/profile_avatars/joaoTT_avatar.png;regular;670;True
 4;AnaKirk;anak@gmail.com;123ana;assets/images/profile_avatars/AnaKirk_avatar.jpg;regular;1430;False
 5;katrine;katrinePetrova@gmail.com;123katrine;assets/images/profile_avatars/katrine_avatar.jpg;regular;2100;False
+6;asd;asd@hotmail.com;asd;assets/images/profile_avatars/default_avatar.jpg;unsigned;0;False
