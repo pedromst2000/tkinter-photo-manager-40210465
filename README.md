@@ -2,7 +2,6 @@
 
 Welcome to PhotoShow, your go-to Tkinter-based photo manager app! 📸
 
-
 ### Table of Contents 📋
 
 - [About PhotoShow](#about-photoshow-💡)
@@ -12,12 +11,14 @@ Welcome to PhotoShow, your go-to Tkinter-based photo manager app! 📸
 - [Dependencies](#dependencies-📦)
 
 ### About PhotoShow 💡
+
 PhotoShow is a user-friendly desktop application developed with Tkinter, designed to simplify and enhance your photo management experience. This lightweight yet powerful app allows you to organize, view, and cherish your memories right from your desktop.
 
 ### Key Features 🔑
+
 `User-Friendly Interface`: Enjoy a clean and intuitive Tkinter interface, making navigation and photo management a breeze.
 
-`Album Creation`: Easily organize your photos into personalized albums, keeping your memories neatly sorted.
+`Album Creation`: Easily organize your photos into personalized albuns, keeping your memories neatly sorted.
 
 `Themed Collections`: Discover themed collections such as Travel Adventures, Nature, Sports, and Art, intelligently categorized for a more enjoyable browsing experience.
 
@@ -39,21 +40,22 @@ The data architecture of PhotoShow is based on the relational database, with the
 
 `favorites`: stores the user's favorite albums.
 
-`albums`: stores the album's data, such as the album's name and the user who created the album.    
+`albuns`: stores the album's data, such as the album's name and the user who created the album.
+
+`notifications`: stores the notification's data, by is type , content and the user who receive(d) the notification.
 
 ### Getting Started 🚀
 
+- To get started, simply clone this repository to your machine
+  in your terminal using the following command:
 
- * To get started, simply clone this repository to your machine
-in your terminal using the following command:
-
-```bash	
+```bash
 git clone
 ```
 
-* Ensure that you have the py version updated to Python `3.11.5` or higher.
+- Ensure that you have the py version updated to Python `3.11.5` or higher.
 
-```bash	
+```bash
 python --version
 ```
 
@@ -73,13 +75,12 @@ pip install Pillow
 
 `!! Note`: Without the `Pillow` dependency, the app may crash when trying to display images.
 
-* Then run the following command in the `terminal` to start the app:
+- Then run the following command in the `terminal` to start the app:
 
 ```bash
 python main.py
 ```
 
 ### THAT'S IT! 🎉 Now you can enjoy PhotoShow and all its features!
-
 
 Author: [Pedro Teixeira](https://github.com/pedromst2000)
