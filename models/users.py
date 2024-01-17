@@ -130,6 +130,26 @@ def getUserInfo(userID: int) -> User:
     return None
 
 
+def findUserID(email: str) -> int:
+    
+    """
+    Function to find the id of the user by its email
+
+    :param email: str
+
+    :return userID: int
+
+    """
+
+    users = User().get_users()
+
+    for user in users:
+        if user["email"] == email:
+            return user["userID"]
+
+    return None
+
+
 def saveAvatar(userID: int, avatar: str) -> bool:
     """
     Function to save the avatar of the user
