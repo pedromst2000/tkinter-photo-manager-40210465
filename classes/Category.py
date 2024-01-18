@@ -32,7 +32,15 @@ class Category:
 
         """
 
-        db = Database(users=[], categories=[], photos=[], comments=[], albuns=[])
+        db = Database(
+            users=[],
+            categories=[],
+            photos=[],
+            comments=[],
+            albuns=[],
+            favorites=[],
+            contacts=[],
+        )
         db.create_category(self)
 
     def delete_category(self):
@@ -43,5 +51,13 @@ class Category:
 
         """
 
-        db = Database(users=[], categories=[], photos=[], comments=[], albuns=[])
+        db = Database(
+            users=[],
+            categories=[],
+            photos=[],
+            comments=[],
+            albuns=[],
+            favorites=[],
+            contacts=[],
+        )
         db.delete_category(self)

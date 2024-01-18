@@ -59,7 +59,13 @@ class User:
         """
 
         db = Database(
-            users=[], categories=[], photos=[], comments=[], albuns=[], favorites=[]
+            users=[],
+            categories=[],
+            photos=[],
+            comments=[],
+            albuns=[],
+            favorites=[],
+            contacts=[],
         )
         return db.get_users()
 
@@ -72,7 +78,13 @@ class User:
         """
 
         db = Database(
-            users=[], categories=[], photos=[], comments=[], albuns=[], favorites=[]
+            users=[],
+            categories=[],
+            photos=[],
+            comments=[],
+            albuns=[],
+            favorites=[],
+            contacts=[],
         )
         db.create_user(self)
 
@@ -85,7 +97,13 @@ class User:
         """
 
         db = Database(
-            users=[], categories=[], photos=[], comments=[], albuns=[], favorites=[]
+            users=[],
+            categories=[],
+            photos=[],
+            comments=[],
+            albuns=[],
+            favorites=[],
+            contacts=[],
         )
         db.update_user(self)
 
@@ -98,6 +116,12 @@ class User:
         """
 
         db = Database(
-            users=[], categories=[], photos=[], comments=[], albuns=[], favorites=[]
+            users=[],
+            categories=[],
+            photos=[],
+            comments=[],
+            albuns=[],
+            favorites=[],
+            contacts=[],
         )
         db.delete_user(self)

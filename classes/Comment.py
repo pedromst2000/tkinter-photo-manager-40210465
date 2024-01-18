@@ -41,7 +41,13 @@ class Comment:
         """
 
         db = Database(
-            users=[], categories=[], photos=[], comments=[], albuns=[], favorites=[]
+            users=[],
+            categories=[],
+            photos=[],
+            comments=[],
+            albuns=[],
+            favorites=[],
+            contacts=[],
         )
         return db.get_comments()
 
@@ -54,6 +60,12 @@ class Comment:
         """
 
         db = Database(
-            users=[], categories=[], photos=[], comments=[], albuns=[], favorites=[]
+            users=[],
+            categories=[],
+            photos=[],
+            comments=[],
+            albuns=[],
+            favorites=[],
+            contacts=[],
         )
         db.create_comment(self)

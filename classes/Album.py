@@ -37,7 +37,13 @@ class Album:
         """
 
         db = Database(
-            users=[], categories=[], photos=[], comments=[], albuns=[], favorites=[]
+            users=[],
+            categories=[],
+            photos=[],
+            comments=[],
+            albuns=[],
+            favorites=[],
+            contacts=[],
         )
         return db.get_albuns()
 
@@ -50,7 +56,13 @@ class Album:
         """
 
         db = Database(
-            users=[], categories=[], photos=[], comments=[], albuns=[], favorites=[]
+            users=[],
+            categories=[],
+            photos=[],
+            comments=[],
+            albuns=[],
+            favorites=[],
+            contacts=[],
         )
         db.create_album(self)
 
@@ -63,6 +75,12 @@ class Album:
         """
 
         db = Database(
-            users=[], categories=[], photos=[], comments=[], albuns=[], favorites=[]
+            users=[],
+            categories=[],
+            photos=[],
+            comments=[],
+            albuns=[],
+            favorites=[],
+            contacts=[],
         )
         db.update_album(self)

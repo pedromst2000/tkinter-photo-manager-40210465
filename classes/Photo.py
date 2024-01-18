@@ -62,7 +62,13 @@ class Photo:
         """
 
         db = Database(
-            users=[], categories=[], photos=[], comments=[], albuns=[], favorites=[]
+            users=[],
+            categories=[],
+            photos=[],
+            comments=[],
+            albuns=[],
+            favorites=[],
+            contacts=[],
         )
         return db.get_photos()
 
@@ -75,7 +81,13 @@ class Photo:
         """
 
         db = Database(
-            users=[], categories=[], photos=[], comments=[], albuns=[], favorites=[]
+            users=[],
+            categories=[],
+            photos=[],
+            comments=[],
+            albuns=[],
+            favorites=[],
+            contacts=[],
         )
         db.create_photo(self)
 
@@ -88,7 +100,13 @@ class Photo:
         """
 
         db = Database(
-            users=[], categories=[], photos=[], comments=[], albuns=[], favorites=[]
+            users=[],
+            categories=[],
+            photos=[],
+            comments=[],
+            albuns=[],
+            favorites=[],
+            contacts=[],
         )
         db.update_photo(self)
 
@@ -101,6 +119,12 @@ class Photo:
         """
 
         db = Database(
-            users=[], categories=[], photos=[], comments=[], albuns=[], favorites=[]
+            users=[],
+            categories=[],
+            photos=[],
+            comments=[],
+            albuns=[],
+            favorites=[],
+            contacts=[],
         )
         db.delete_photo(self)

@@ -37,7 +37,13 @@ class Favorite:
         """
 
         db = Database(
-            users=[], categories=[], photos=[], comments=[], albuns=[], favorites=[]
+            users=[],
+            categories=[],
+            photos=[],
+            comments=[],
+            albuns=[],
+            favorites=[],
+            contacts=[],
         )
         return db.get_favorites()
 
@@ -50,7 +56,13 @@ class Favorite:
         """
 
         db = Database(
-            users=[], categories=[], photos=[], comments=[], albuns=[], favorites=[]
+            users=[],
+            categories=[],
+            photos=[],
+            comments=[],
+            albuns=[],
+            favorites=[],
+            contacts=[],
         )
         db.create_favorite(self)
 
@@ -60,7 +72,13 @@ class Favorite:
         """
 
         db = Database(
-            users=[], categories=[], photos=[], comments=[], albuns=[], favorites=[]
+            users=[],
+            categories=[],
+            photos=[],
+            comments=[],
+            albuns=[],
+            favorites=[],
+            contacts=[],
         )
 
         db.delete_favorite(self)
