@@ -5,6 +5,7 @@ class Database:
     comments = []
     albuns = []
     favorites = []
+    contacts = []
 
     # constructor
     def __init__(
@@ -15,6 +16,7 @@ class Database:
         comments: list = [],
         albuns: list = [],
         favorites: list = [],
+        contacts: list = [],
     ):
         """
         Initialize the database.
@@ -25,6 +27,7 @@ class Database:
         :param comments: List of comment objects representing the comments in the database.
         :param albuns: List of album objects representing the albums in the database.
         :param favorites: List of favorite objects representing the favorites in the database.
+        :param contacts: List of contact objects representing the contacts in the database.
         """
 
         self.users = users
@@ -33,6 +36,7 @@ class Database:
         self.comments = comments
         self.albuns = albuns
         self.favorites = favorites
+        self.contacts = contacts
 
     # methods
     def get_users(self) -> list:
@@ -267,7 +271,44 @@ class Database:
 
             return self.favorites
 
-    def create_user(self, user: dict) -> None:  # add a new user to the database
+    def get_contacts(self) -> list:
+        """
+        Retrieve contact data from 'contacts.txt' and return a list of contact objects.
+
+        Each contact object includes:
+        - contactID: Unique identifier for the contact (int).
+        - title: Title of the contact (str).
+        - message: Message of the contact (str).
+        - userID: User ID of the user (int).
+
+        return: List of contact objects representing the contacts in the database.
+        """
+
+        file = open("files/contacts.txt", "r", encoding="utf-8")
+
+        lines = file.readlines()
+
+        for line in lines:
+            contact = line.split(";")
+
+            # ignoring the first line
+            if contact[0] == "contactID":
+                continue
+
+            self.contacts.append(
+                {
+                    "contactID": int(contact[0]),  # integer
+                    "title": contact[1],  # string
+                    "message": contact[2],  # string
+                    "userID": contact[3].strip("\n"),  # integer
+                }
+            )
+
+            file.close()
+
+            return self.contacts
+
+    def create_user(self, user: dict) -> dict:  # add a new user to the database
         """
         Create a new user and add it to the database.
 
@@ -308,6 +349,8 @@ class Database:
         )
         file.close()
 
+        return new_user
+
     def create_category(
         self, category: dict
     ) -> None:  # add a new category to the database
@@ -342,6 +385,8 @@ class Database:
         file.write(f"\n{new_category['categoryID']};{new_category['category']}")
 
         file.close()
+
+        return new_category
 
     def create_photo(self, photo: dict) -> None:  # add a new photo to the database
         """
@@ -385,6 +430,8 @@ class Database:
 
         file.close()
 
+        return new_photo
+
     def create_comment(
         self, comment: dict
     ) -> None:  # add a new comment to the database
@@ -423,7 +470,9 @@ class Database:
 
         file.close()
 
-    def create_album(self, album: dict) -> None:  # add a new album to the database
+        return new_comment
+
+    def create_album(self, album: dict) -> dict:  # add a new album to the database
         """
         Create a new album and add it to the database.
 
@@ -459,9 +508,11 @@ class Database:
 
         file.close()
 
+        return new_album
+
     def create_favorite(
         self, favorite: dict
-    ) -> None:  # add a new favorite album to the database
+    ) -> dict:  # add a new favorite album to the database
         """
         Create a new favorite album and add it to the database.
 
@@ -493,7 +544,49 @@ class Database:
 
         file.close()
 
-    def update_user(self, user: dict) -> None:  # update a user in the database
+        return new_favorite
+
+    def create_contact(
+        self, contact: dict
+    ) -> dict:  # add a new contact to the database
+        """
+        Create a new contact and add it to the database.
+
+        :param contact: Dictionary containing the contact data.
+
+        :return: Dictionary containing the contact data.
+
+        """
+
+        file = open("files/contacts.txt", "a", encoding="utf-8")
+
+        contacts = self.get_contacts()
+
+        # getting the last contact id
+        last_contact_id = contacts[-1]["contactID"]
+
+        # incrementing the last contact id
+        last_contact_id += 1
+
+        # new contact dictionary
+        new_contact = {
+            "contactID": last_contact_id,
+            "title": contact.title,
+            "message": contact.message,
+            "userID": contact.userID,
+        }
+
+        self.contacts.append(new_contact)
+
+        file.write(
+            f"{new_contact['contactID']};{new_contact['title']};{new_contact['message']};{new_contact['userID']}\n"
+        )
+
+        file.close()
+
+        return new_contact
+
+    def update_user(self, user: dict) -> dict:  # update a user in the database
         """
         Update a user in the database.
 
@@ -522,7 +615,7 @@ class Database:
 
         return user
 
-    def update_photo(self, photo: dict) -> None:  # update a photo in the database
+    def update_photo(self, photo: dict) -> dict:  # update a photo in the database
         """
         Update a photo in the database.
 
@@ -551,7 +644,7 @@ class Database:
 
         return photo
 
-    def update_album(self, album: dict) -> None:  # update a album in the database
+    def update_album(self, album: dict) -> dict:  # update a album in the database
         """
         Update a album in the database.
 
@@ -587,7 +680,7 @@ class Database:
 
         :param category: Dictionary containing the category data.
 
-        :return: Dictionary containing the category data.
+        :return: None.
         """
 
         file = open("files/categories.txt", "r", encoding="utf-8")
@@ -613,8 +706,7 @@ class Database:
 
         :param photo: Dictionary containing the photo data.
 
-        :return: Dictionary containing the photo data.
-
+        :return: None.
         """
 
         file = open("files/photos.txt", "r", encoding="utf-8")
@@ -640,7 +732,7 @@ class Database:
 
         :param user: Dictionary containing the user data.
 
-        :return: Dictionary containing the user data.
+        :return: None.
 
         """
 
@@ -660,14 +752,14 @@ class Database:
                 file.write(line)
 
         file.close()
-    
+
     def delete_favorite(self, favorite: dict) -> None:
         """
         Delete a favorite album from the database.
 
         :param favorite: Dictionary containing the favorite album data.
 
-        :return: Dictionary containing the favorite data.
+        :return: None.
 
         """
 
