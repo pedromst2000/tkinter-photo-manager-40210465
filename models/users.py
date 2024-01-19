@@ -131,7 +131,6 @@ def getUserInfo(userID: int) -> User:
 
 
 def findUserID(email: str) -> int:
-    
     """
     Function to find the id of the user by its email
 
@@ -221,3 +220,163 @@ def deleteAccount(userID: int) -> bool:
             return True  # return True if the user was deleted successfully
 
     return False  # return False if the user wasn't deleted successfully
+
+
+def get_users_list() -> list:
+    """
+    Function to get the list of all users with partial information :
+
+    userID, username, email and role
+
+    :return: list
+
+    """
+    return [
+        {
+            "userID": user["userID"],
+            "username": user["username"],
+            "email": user["email"],
+            "role": user["role"],
+            "isBlocked": user["isBlocked"],
+        }
+        for user in User().get_users()
+        if user["role"] != "admin"
+    ]
+
+
+def change_role(username: str, new_role: str) -> bool:
+    """
+    Function to change the role of the user
+
+    :param username: str
+    :param new_role: str
+
+    :return: bool
+    """
+
+    users = User().get_users()
+
+    for user in users:
+        if user["username"] == username:
+            user["role"] = new_role
+            user = User(
+                user["userID"],
+                user["username"],
+                user["email"],
+                user["password"],
+                user["role"],
+                user["followers"],
+                user["avatar"],
+                user["isBlocked"],
+            )
+            user.update_user()
+            return True
+    return False
+
+
+def block_user(username: str) -> bool:
+    """
+    Function to block the user
+
+    :param username: str
+
+    :return: bool
+
+    """
+
+    users = User().get_users()
+
+    for user in users:
+        if user["username"] == username:
+            user["isBlocked"] = True  # update the isBlocked of the user
+            user = User(
+                user["userID"],
+                user["username"],
+                user["email"],
+                user["password"],
+                user["role"],
+                user["followers"],
+                user["avatar"],
+                user["isBlocked"],
+            )
+            user.update_user()
+            return True
+
+    return False  # return False if the user wasn't blocked successfully
+
+
+def unblock_user(username: str) -> bool:
+    """
+    Function to unblock the user
+
+    :param username: str
+
+    :return: bool
+
+    """
+
+    users = User().get_users()
+
+    for user in users:
+        if user["username"] == username:
+            user["isBlocked"] = False  # update the isBlocked of the user
+            user = User(
+                user["userID"],
+                user["username"],
+                user["email"],
+                user["password"],
+                user["role"],
+                user["followers"],
+                user["avatar"],
+                user["isBlocked"],
+            )
+            user.update_user()
+            return True
+
+    return False  # return False if the user wasn't unblocked successfully
+
+
+def filter_users(username: str, email: str) -> list:
+    """
+    Function to filter the users by username and email
+
+    :param username: str
+    :param email: str
+
+    :return: list
+
+    """
+
+    users = User().get_users()
+
+    # Admin cannot be filtered
+    filteredUsers = [
+        user for user in users if user["role"] != "admin"
+    ]
+
+    # filter by username
+    if username != "":
+        filteredUsers = [
+            user
+            for user in filteredUsers
+            if user["username"].lower().startswith(username.lower())
+        ]
+
+    # filter by email
+    if email != "":
+        filteredUsers = [
+            user
+            for user in filteredUsers
+            if user["email"].lower().startswith(email.lower())
+        ]
+
+    # filter by username and email
+    if username != "" and email != "":
+        filteredUsers = [
+            user
+            for user in filteredUsers
+            if user["username"].lower().startswith(username.lower())
+            and user["email"].lower().startswith(email.lower())
+        ]
+
+    return filteredUsers
