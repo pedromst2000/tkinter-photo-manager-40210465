@@ -177,7 +177,7 @@ class menu:
             elif i == 4:
                 opt.bind(
                     "<Button-1>",
-                    self.homeWindow.destroy(),
+                    lambda e: self.homeWindow.destroy(),
                 )
 
     def adminMenu(self):
@@ -212,5 +212,5 @@ class menu:
             elif i == 6:
                 opt.bind(
                     "<Button-1>",
-                    self.homeWindow.destroy(),
+                    lambda e: self.homeWindow.destroy(),
                 )
