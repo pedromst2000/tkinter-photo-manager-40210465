@@ -110,7 +110,7 @@ class Database:
             self.categories.append(
                 {
                     "categoryID": int(category[0]),  # integer
-                    "category": category[0].strip("\n"),
+                    "category": category[1].strip("\n"),
                 }
             )
 
@@ -595,7 +595,6 @@ class Database:
         :return: Dictionary containing the user data.
 
         """
-
         file = open("files/users.txt", "r", encoding="utf-8")
 
         lines = file.readlines()
@@ -605,15 +604,15 @@ class Database:
         file = open("files/users.txt", "w+", encoding="utf-8")
 
         for line in lines:
-            if line.split(";")[0] != user.userID:
-                file.write(line)
-
+            # update by the email or username
+            if line.split(";")[1] == user.username:
+                file.write(
+                    f"{user.userID};{user.username};{user.email};{user.password};{user.avatar};{user.role};{user.followers};{user.isBlocked}\n"
+                )
             else:
                 file.write(line)
 
         file.close()
-
-        return user
 
     def update_photo(self, photo: dict) -> dict:  # update a photo in the database
         """
@@ -683,22 +682,18 @@ class Database:
         :return: None.
         """
 
-        file = open("files/categories.txt", "r", encoding="utf-8")
+        file_path = "files/categories.txt"
+        temp_lines = []  # temporary list to store the lines
 
-        lines = file.readlines()
-
-        file.close()
-
-        file = open("files/categories.txt", "w+", encoding="utf-8")
+        with open(file_path, "r", encoding="utf-8") as file:
+            lines = file.readlines()
 
         for line in lines:
-            if line.split(";")[0] != category.categoryID:
-                file.write(line)
+            if line.split(";")[1].strip() != category.category:
+                temp_lines.append(line)
 
-            else:
-                file.write(line)
-
-        file.close()
+        with open(file_path, "w", encoding="utf-8") as file:
+            file.writelines(temp_lines)
 
     def delete_photo(self, photo: dict) -> None:  # delete a photo from the database
         """
