@@ -3,21 +3,18 @@ User Stories - Requirements - Features
 -- datetime para datas
 -- datepicker para datas
 
-## Others
-
-[] - Add Read Guidelines
-
 ## ADMIN USER - Manage Users
 
-[] - Should have a users list to be manage , each should be dynamic.
-[] - Can change the roles of the user from unsigned to regular in the users list.
-[] - Can block an user from bad behavior (reported user) in the users list.
+[X] - Should have a users list to be manage , each should be dynamic.
+[X] - Should be possible to filter the users list by email or username.
+[X] - Can change the roles of the user from unsigned to regular in the users list.
+[X] - Can block an user from bad behavior in the users list.
 
 ## ADMIN USER - Manage Categories
 
-[] - Should have a categories list to be manage , each should be dynamic.
-[] - Can add a new category in the categories list for the app.
-[] - Can delete a category in the categories list of the app.
+[X] - Should have a categories list to be manage , each should be dynamic.
+[x] - Can add a new category in the categories list for the app.
+[x] - Can delete a category in the categories list of the app.
 
 ## ADMIN USER - Manage Notifications
 
