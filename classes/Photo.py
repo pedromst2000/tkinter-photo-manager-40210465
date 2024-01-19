@@ -9,13 +9,13 @@ class Photo:
     image = ""
     likes = 0
     views = 0
-    rating = 0
     categoryID = 0
-    creatorID = 0
+    albumID = 0
 
     # constructor
     def __init__(
         self,
+        photoID: int = 0,
         description: str = "",
         publishedDate: str = "",
         image: str = "",
@@ -23,13 +23,14 @@ class Photo:
         views: int = 0,
         rating: int = 0,
         categoryID: int = 0,
-        creatorID: int = 0,
+        albumID: int = 0,
     ) -> None:
         """
         Constructor of the Class Photo
 
         optional fields if nothing is passed, the default value is used
 
+        :param photoID: int (optional, default=0)
         :param description: str (optional, default="")
         :param publishedDate: str (optional, default="")
         :param image: str (optional, default="")
@@ -37,11 +38,12 @@ class Photo:
         :param views: int (optional, default=0)
         :param rating: int (optional, default=0)
         :param categoryID: int (optional, default=0)
-        :param creatorID: int (optional, default=0)
+        :param albumID: int (optional, default=0)
 
         :return: None
         """
 
+        self.photoID = photoID
         self.description = description
         self.publishedDate = publishedDate
         self.image = image
@@ -49,7 +51,7 @@ class Photo:
         self.views = views
         self.rating = rating
         self.categoryID = categoryID
-        self.creatorID = creatorID
+        self.albumID = albumID
 
     # methods
 

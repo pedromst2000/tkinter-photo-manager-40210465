@@ -3,6 +3,7 @@ from database import Database
 
 class Comment:
     # attributes
+    commentID = 0
     authorID = 0
     comment = ""
     photoID = 0
@@ -10,6 +11,7 @@ class Comment:
     # constructor
     def __init__(
         self,
+        commentID: int = 0,
         authorID: int = 0,
         comment: str = "",
         photoID: int = 0,
@@ -19,6 +21,7 @@ class Comment:
 
         optional fields if nothing is passed, the default value is used
 
+        :param commentID: int (optional, default=0)
         :param authorID: int (optional, default=0)
         :param comment: str (optional, default="")
         :param photoID: int (optional, default=0)
@@ -26,6 +29,7 @@ class Comment:
         :return: None
         """
 
+        self.commentID = commentID
         self.authorID = authorID
         self.comment = comment
         self.photoID = photoID

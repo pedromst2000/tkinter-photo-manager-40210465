@@ -155,10 +155,9 @@ class Database:
                     "image": photo[3],  # string
                     "likes": int(photo[4]),  # integer
                     "views": int(photo[5]),  # integer
-                    "rating": photo[5],  # float
-                    "categoryID": photo[6],  # integer
-                    "creatorID": photo[7],  # integer
-                    "albumID": photo[8].strip("\n"),  # integer
+                    "rating": int(photo[6]),  # integer
+                    "categoryID": photo[7],  # integer
+                    "albumID": int(photo[8].strip("\n")),  # integer
                 }
             )
 
@@ -418,14 +417,14 @@ class Database:
             "views": photo.views,
             "rating": photo.rating,
             "categoryID": photo.categoryID,
-            "creatorID": photo.creatorID,
+            "albumID": photo.albumID,
         }
 
         # appending the new photo to the photos list
         self.photos.append(new_photo)
 
         file.write(
-            f"{new_photo['photoID']};{new_photo['description']};{new_photo['publishedDate']};{new_photo['image']};{new_photo['likes']};{new_photo['views']};{new_photo['rating']};{new_photo['categoryID']};{new_photo['creatorID']}\n"
+            f"{new_photo['photoID']};{new_photo['description']};{new_photo['publishedDate']};{new_photo['image']};{new_photo['likes']};{new_photo['views']};{new_photo['rating']};{new_photo['categoryID']};{new_photo['albumID']}\n"
         )
 
         file.close()

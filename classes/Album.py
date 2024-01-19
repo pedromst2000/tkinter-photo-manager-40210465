@@ -3,12 +3,14 @@ from database import Database
 
 class Album:
     # attributes
+    albumID = 0
     name = ""
     creatorID = 0
 
     # constructor
     def __init__(
         self,
+        albumID: int = 0,
         name: str = "",
         creatorID: int = 0,
     ) -> None:
@@ -17,12 +19,14 @@ class Album:
 
         optional fields if nothing is passed, the default value is used
 
+        :param albumID: int (optional, default=0)
         :param name: str (optional, default="")
         :param creatorID: int (optional, default=0)
 
         :return: None
         """
 
+        self.albumID = albumID
         self.name = name
         self.creatorID = creatorID
 

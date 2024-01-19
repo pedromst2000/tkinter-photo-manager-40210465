@@ -3,6 +3,7 @@ from database import Database
 
 class User:
     # attributes
+    userID = 0
     username = ""
     email = ""
     password = ""
@@ -14,6 +15,7 @@ class User:
     # constructor
     def __init__(
         self,
+        userID: int = 0,
         username: str = "",
         email: str = "",
         password: str = "",
@@ -28,6 +30,7 @@ class User:
 
         optional fields if nothing is passed, the default value is used
 
+        :param userID: int (optional, default=0)
         :param username: str (optional, default="")
         :param email: str (optional, default="")
         :param password: str (optional, default="")
@@ -39,7 +42,7 @@ class User:
         :return: None
 
         """
-
+        self.userID = userID
         self.username = username
         self.email = email
         self.password = password
@@ -54,10 +57,9 @@ class User:
         """
         Method to get all instances of the Class User
 
-        :return: None
+        :return: List[User]
 
         """
-
         db = Database(
             users=[],
             categories=[],
