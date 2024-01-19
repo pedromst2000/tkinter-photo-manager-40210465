@@ -1,10 +1,11 @@
 import tkinter as tk
 from tkinter import messagebox, Canvas, Label, Entry, Button, NW
 from PIL import ImageTk, Image
-from models.users import login
+from models.users import login, findUserID, getUserInfo
 from styles.colors import colors
 from styles.fonts import quickSandBold, quickSandRegular
 from windows.Home.homeWindow import homeWindow
+from windows.Home.homeBannedWindow import homeBannedWindow
 from windows.Authentication.registerWindow import registerWindow
 from utils.widgets.input import on_focus_in, on_focus_out, on_click_outside
 from utils.widgets.button import (
@@ -256,6 +257,8 @@ def checkLogin(email: str, password: str, loginWindow: object, Window: object) -
 
     # this function returns the user if the email and password are correct, otherwise returns None
     user = login(email, password)
+    userID = findUserID(email)
+    userPayload = getUserInfo(userID)
 
     if user == None:  # if the user doesn't exist
         messagebox.showerror("Error", "Invalid Credentials", parent=loginWindow)
@@ -270,7 +273,12 @@ def checkLogin(email: str, password: str, loginWindow: object, Window: object) -
 
         loginWindow.destroy()  # destroy the login window
         Window.destroy()
-        homeWindow(email, isLogged, isNewUser)  # open the home window
+        # homeWindow(email, isLogged, isNewUser)  # open the home window
+    # render conditional home window
+    if userPayload["isBlocked"] == True:
+        homeBannedWindow(email)
+    else:
+        homeWindow(email, isLogged, isNewUser)
 
 
 def openSignUpLink(event: object, loginWindow: object, window: object) -> None:
