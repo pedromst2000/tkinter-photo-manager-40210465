@@ -1,5 +1,4 @@
 from tkinter import (
-    Tk,
     Canvas,
     NW,
     CENTER,
@@ -160,12 +159,12 @@ def albunsProfileWindow(email: str):
     )
     # ---------------------------------Buttons--------------------------------------
 
-    # TODO: will not show the add album button for a visitor user (if Possible)
-    # TODO: will not show the edit album button for a visitor user (if Possible)
-    # TODO: will not show the remove photo button for a visitor user (if Possible)
-    # TODO: Willl not show the labels of the inputs for a visitor user (if Possible)
-    # TODO: Will not show the inputs for a visitor user (if Possible)
-    # TODO: The favorite button will only show for a visitor user (if Possible)
+    # TODO: will not show the add album button for a visitor user (Nice to have)
+    # TODO: will not show the edit album button for a visitor user (Nice to have)
+    # TODO: will not show the remove photo button for a visitor user (Nice to have)
+    # TODO: Willl not show the labels of the inputs for a visitor user (Nice to have)
+    # TODO: Will not show the inputs for a visitor user (Nice to have)
+    # TODO: The favorite button will only show for a visitor user (Nice to have)
 
     btnSelectAlbum = Button(
         width=78,
@@ -433,7 +432,7 @@ def albunsProfileWindow(email: str):
 
     # ---------------------------------Events---------------------------------
     listAlbumPhotos.bind(
-        "<Button-1>",
+        "<<ListboxSelect>>",
         lambda event: previewSelectedPhoto(
             event, listAlbumPhotos, canvasPreviewImage, placeholderImage
         ),

@@ -257,19 +257,20 @@ class Database:
             favorite = line.split(";")
 
             # ignoring the first line
-            if favorite[0] == "albumID":
+            if favorite[0] == "favoriteID":
                 continue
 
             self.favorites.append(
                 {
-                    "albumID": int(favorite[0]),  # integer
-                    "userID": int(favorite[1].strip("\n")),  # integer
+                    "favoriteID": int(favorite[0]),  # integer
+                    "albumID": int(favorite[1]),  # integer
+                    "userID": int(favorite[2].strip("\n")),  # integer
                 }
             )
 
-            file.close()
+        file.close()
 
-            return self.favorites
+        return self.favorites
 
     def get_contacts(self) -> list:
         """
@@ -528,20 +529,23 @@ class Database:
         favorites = self.get_favorites()
 
         # getting the last favorite id
-        last_favorite_id = favorites[-1]["albumID"]
+        last_favorite_id = favorites[-1]["favoriteID"]
 
         # incrementing the last favorite id
         last_favorite_id += 1
 
         # new favorite dictionary
         new_favorite = {
-            "albumID": last_favorite_id,
+            "favoriteID": last_favorite_id,
+            "albumID": favorite.albumID,  # integer
             "userID": favorite.userID,
         }
 
         self.favorites.append(new_favorite)
 
-        file.write(f"{new_favorite['albumID']};{new_favorite['userID']}\n")
+        file.write(
+            f"\n{new_favorite['favoriteID']};{new_favorite['albumID']};{new_favorite['userID']}"
+        )
 
         file.close()
 
@@ -729,30 +733,3 @@ class Database:
 
         with open(file_path, "w", encoding="utf-8") as file:
             file.writelines(temp_lines)
-
-    def delete_favorite(self, favorite: dict) -> None:
-        """
-        Delete a favorite album from the database.
-
-        :param favorite: Dictionary containing the favorite album data.
-
-        :return: None.
-
-        """
-
-        file = open("files/favorites.txt", "r", encoding="utf-8")
-
-        lines = file.readlines()
-
-        file.close()
-
-        file = open("files/favorites.txt", "w+", encoding="utf-8")
-
-        for line in lines:
-            if line.split(";")[0] != favorite.albumID:
-                file.write(line)
-
-            else:
-                file.write(line)
-
-        file.close()

@@ -15,6 +15,23 @@ def insert_albuns(albuns: list, albunsListbox: Listbox):
         albunsListbox.insert("end", album["name"])
 
 
+def insert_favorite_albuns(favorite_albuns: list, favoriteAlbunsListbox: Listbox):
+    """
+    This function is used to insert the favorite albuns into the listbox.
+
+    :param favorite_albuns: list
+    :param favoriteAlbunsListbox: tk.Listbox
+
+    """
+
+    # if the user has no favorite albums display empty state in the listbox
+    if len(favorite_albuns) == 0:
+        favoriteAlbunsListbox.insert("end", "No favorite albums available.")
+
+    for album in favorite_albuns:
+        favoriteAlbunsListbox.insert("end", album["name"])
+
+
 def selectAlbum(
     event: callable,
     albunsListbox: Listbox,
@@ -265,3 +282,45 @@ def removePhoto(
         canvasPreviewImage.create_image(0, 0, image=placeholderImage, anchor=NW)
     else:
         return
+
+def selectFavoriteAlbum(
+    event: callable,
+    favoritesAlbunsListbox: Listbox,
+    photosListbox: Listbox,
+    userID: int,
+    get_favorites_albuns: callable,
+    get_album_photos: callable,
+    messagebox: messagebox,
+    _favoritesProfileWindow_: Toplevel,
+    selectedAlbum: str,
+    current_index: int,
+ ):
+        # if there is no album selected
+        if len(favoritesAlbunsListbox.curselection()) == 0:
+            return messagebox.showerror(
+                "Error",
+                "You need to select an album to view the available photos.",
+                parent=_favoritesProfileWindow_,
+            )
+
+        if favoritesAlbunsListbox.curselection():
+            selectedAlbum = favoritesAlbunsListbox.get(
+                favoritesAlbunsListbox.curselection()
+            )
+
+            # clear the listbox
+            photosListbox.delete(0, "end")
+
+            # inserting the photos in the listbox
+            for photo in get_album_photos(
+                [
+                    album["albumID"]
+                    for album in get_favorites_albuns(userID)
+                    if album["name"] == selectedAlbum
+                ][0]
+            ):
+                photosListbox.insert("end", photo["image"])
+
+        # if there is no photos in the album to display
+        if photosListbox.size() == 0:
+            photosListbox.insert("end", "No photos to display.")
