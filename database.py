@@ -89,17 +89,6 @@ class Database:
     def get_user(self, userID: int) -> dict:
         """
         Retrieve user data from 'users.txt' and return a user object.
-
-        Each user object includes:
-        - userID: Unique identifier (int).
-        - username: User's username (str).
-        - email: User's email address (str).
-        - password: User's password (str).
-        - avatar: File path or URL for user's avatar (str).
-        - role: User's role ('admin', 'regular', 'unsigned') (str).
-        - followers: user's followers (int).
-        - isBlocked: Indicates if the user is blocked (bool).
-
         :param userID: Unique identifier (int).
 
         :return: Dictionary containing the user data.
@@ -166,6 +155,7 @@ class Database:
 
         return self.categories
 
+
     def get_photos(self) -> list:
         """
         Retrieve photo data from 'photos.txt' and return a list of photo objects.
@@ -179,7 +169,6 @@ class Database:
         - views: Number of views for the photo (int).
         - rating: Rating of the photo (float).
         - categoryID: Category ID of the photo (int).
-        - creatorID: Creator ID of the photo (int).
         - albumID: Album ID of the photo each belongs to (int).
 
         :return: List of photo objects representing the photos in the database.
@@ -638,33 +627,40 @@ class Database:
 
         return new_contact
 
-    def update_user(self, user: dict) -> dict:  # update a user in the database
+    def update_user(
+        self, user: dict, updated_user: dict
+    ) -> dict:  # update a user in the database
         """
         Update a user in the database.
 
         :param user: Dictionary containing the user data.
+        :param updated_user: Dictionary containing the updated user data.
 
         :return: Dictionary containing the user data.
 
         """
-        file = open("files/users.txt", "r", encoding="utf-8")
+        file_path = "files/users.txt"
 
-        lines = file.readlines()
+        with open(file_path, "r", encoding="utf-8") as file:
+            lines = file.readlines()
 
-        file.close()
+        with open(file_path, "w", encoding="utf-8") as file:
+            for line in lines:
+                parts = line.split(";")
+                if (
+                    len(parts) > 0 and parts[0].isdigit()
+                ):  # if the line starts with a number
+                    current_user_id = int(parts[0])
+                    if current_user_id == updated_user["userID"]:
+                        file.write(
+                            f"{updated_user['userID']};{updated_user['username']};{updated_user['email']};{updated_user['password']};{updated_user['avatar']};{updated_user['role']};{updated_user['followers']};{updated_user['photos']};{updated_user['isBlocked']}\n"
+                        )
+                    else:
+                        file.write(line)
+                else:
+                    file.write(line)
 
-        file = open("files/users.txt", "w+", encoding="utf-8")
-
-        for line in lines:
-            # updating by username
-            if line.split(";")[1] == user.username:
-                file.write(
-                    f"{user.userID};{user.username};{user.email};{user.password};{user.avatar};{user.role};{user.followers};{user.photos};{user.isBlocked}\n"
-                )
-            else:
-                file.write(line)
-
-        file.close()
+        return updated_user
 
     def update_album(
         self,

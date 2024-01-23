@@ -34,8 +34,8 @@ def profileWindow(email: str):
 
     userID = findUserID(email)  # replace with email
     userPayload = getUserInfo(userID)
-
-    print(f"profileWindowPayload: {userPayload}")
+    
+    print(userPayload)
 
     # centering the window
     profileWindowWidth = 1000  # width of the window

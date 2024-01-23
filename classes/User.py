@@ -112,7 +112,7 @@ class User:
         )
         db.create_user(self)
 
-    def update_user(self):
+    def update_user(self, updated_user: dict):
         """
         Method to update an instance of the Class User
 
@@ -128,4 +128,4 @@ class User:
             favorites=[],
             contacts=[],
         )
-        db.update_user(self)
+        db.update_user(self, updated_user)

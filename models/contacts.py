@@ -10,8 +10,6 @@ def get_contacts() -> list:
     """
     contacts = Contact().get_contacts()
     
-    print(contacts)
-
     if contacts == None:
         return []
 

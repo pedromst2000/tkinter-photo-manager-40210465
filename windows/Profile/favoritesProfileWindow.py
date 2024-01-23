@@ -48,8 +48,8 @@ def favoritesProfileWindow(email: str):
 
     userID = findUserID(email)  # replace with email
     userPayload = getUserInfo(userID)
-
-    print(f"favoritesProfileWindowPayload: {userPayload}")
+    
+    print(userPayload)
 
     # centering the window
     favoritesProfileWindowWidth = 1070  # width of the window

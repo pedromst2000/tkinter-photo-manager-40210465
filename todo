@@ -3,6 +3,8 @@ User Stories - Requirements - Features
 -- datetime para datas
 -- datepicker para datas
 
+-- Remove all the debuged from the windows or unecessary userpayload debugss
+
 ## ADMIN USER - Manage Users
 
 [X] - Should have a users list to be manage , each should be dynamic.
@@ -48,15 +50,15 @@ favorite album - new photo added to a favorite album
 ## ALL USERS - Profile
 
 [X] - An user should have an avatar.
-[] - Should have the possibility of updating his avatar.
+[X] - Should have the possibility of updating his avatar.
 [] - An user should have the possibility to chance his password access.
 [X] - An user should be possible to create an album of photos.
 [X] - Display the albuns availabe of the user.
 [X] - Change the name of an album.
 [X] - Number of followers.
 [X] - Delete content (only is possible to delete content created by the user). - delete photo from an album
-[] - Display favorite albuns.
-[] - For the admin profile should display the list of contacts of banned users.
+[X] - Display favorite albuns.
+[X] - For the admin profile should display the list of contacts of banned users.
 
 ## ALL USERS - Manage Content
 
@@ -64,31 +66,29 @@ favorite album - new photo added to a favorite album
 [] - Should display "gallery" of random photos in the catalog.
 [] - Should be possible to see the detail of a clicked photo from the "gallery" :
 
-- the photo (image)
-- number views
-- number likes
-- number comments
-- author of the photo
-- button (like)
-- button ( add comment )
-- button (see setail of the photo)
+- () the photo (image)
+- () number views
+- () number likes
+- () number comments
+- () author of the photo
+- () button (like)
+- () button ( add comment )
+- () button (see setail of the photo)
   [] - Display the detail of the photo:
-- the photo (image)
-- number views
-- number likes
-- description
-- number comments
-- author of the photo
-- button (like)
-- button ( add comment )
-- see threat of comments
+- () the photo (image)
+- () number views
+- () number likes
+- () description
+- () number comments
+- () author of the photo
+- () button (like)
+- () button ( add comment )
+- () see threat of comments
 
 ## ALL USERS - Filter Content
 
 [] - Filter By user the catalog of content. (search)
 [] - Filter By category the catalog of content. (select)
-[] - Filter By date the catalog of content. (date picker)
-[] - Filter By most liked the catalog of content.
 
 ## ALL USERS - Interaction with the content
 

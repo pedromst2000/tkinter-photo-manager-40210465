@@ -1,6 +1,15 @@
-from tkinter import Listbox, messagebox, Toplevel, Canvas, NW, END, Entry
+from tkinter import (
+    Listbox,
+    messagebox,
+    Toplevel,
+    Canvas,
+    NW,
+    END,
+    Entry,
+    Text,
+    Label,
+)
 from PIL import ImageTk, Image
-
 
 def insert_albuns(albuns: list, albunsListbox: Listbox):
     """
@@ -343,3 +352,38 @@ def selectFavoriteAlbum(
     # if there is no photos in the album to display
     if photosListbox.size() == 0:
         photosListbox.insert("end", "No photos to display.")
+
+
+def preeviewMessageEvent(
+    event: callable,
+    listUsers: Listbox,
+    contacts: list,
+    previewTitleContent: Label,
+    previewMessage: Text,
+):
+    """
+    This function is used to display the preview message of the selected contact.
+
+    :param event: event
+    """
+
+    if len(listUsers.curselection()) == 0:
+        previewTitleContent.configure(text="Select a contact to preview the title")
+        previewMessage.configure(state="normal")
+        previewMessage.delete("1.0", "end")
+        previewMessage.insert("end", "Select a contact to preview the message")
+        previewMessage.configure(state="disabled")
+
+        return
+
+    # getting the contact selected
+    contact = contacts[listUsers.curselection()[0]]
+
+    # inserting the title of the contact in the preview title
+    previewTitleContent.configure(text=contact["title"])
+
+    # inserting the message of the contact in the preview message
+    previewMessage.configure(state="normal")
+    previewMessage.delete("1.0", "end")
+    previewMessage.insert("end", contact["message"])
+    previewMessage.configure(state="disabled")

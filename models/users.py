@@ -151,7 +151,7 @@ def findUserID(email: str) -> int:
     return None
 
 
-def saveAvatar(userID: int, avatar: str) -> bool:
+def saveAvatar(userID: int, newavatar: str) -> bool:
     """
     Function to save the avatar of the user
 
@@ -168,13 +168,22 @@ def saveAvatar(userID: int, avatar: str) -> bool:
         if user["userID"] == userID:  # if the email exists in the database
             user[
                 "avatar"
-            ] = f"assets/images/Profile/{avatar}"  # update the avatar of the user
-            User(
+            ] = f"assets/images/profile_avatars/{newavatar}"  # update the avatar of the user
+            user = User(
+                user["userID"],
+                user["username"],
+                user["email"],
+                user["password"],
                 user["avatar"],
-            ).update_user()  # update the user in the database
+                user["role"],
+                user["followers"],
+                user["photos"],
+                user["isBlocked"],
+            ).update_user(
+                user
+            )  # update the user in the database
 
             return True  # return True if the avatar was updated successfully
-
     return False  # return False if the avatar wasn't updated successfully
 
 
@@ -218,6 +227,7 @@ def get_users_list() -> list:
             "username": user["username"],
             "email": user["email"],
             "role": user["role"],
+            "avatar": user["avatar"],
             "isBlocked": user["isBlocked"],
         }
         for user in User().get_users()

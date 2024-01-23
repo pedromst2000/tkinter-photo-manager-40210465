@@ -16,8 +16,9 @@ def changePasswordWindow(email: str):
 
     userID = findUserID("pedromst@gmail.com")  # replace with email
     userPayload = getUserInfo(userID)
+    
+    print(userPayload)
 
-    print(f"changePasswordWindowPayload: {userPayload}")
 
     # centering the window
     changePasswordWindowWidth = 1000  # width of the window

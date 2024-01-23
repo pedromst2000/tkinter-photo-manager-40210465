@@ -3,7 +3,7 @@ from styles.colors import colors
 from styles.fonts import quickSandBold, quickSandRegular
 from models.users import getUserInfo, findUserID
 from models.contacts import get_contacts
-from utils.profile.profile import insert_contacts
+from utils.profile.profile import insert_contacts, preeviewMessageEvent
 
 
 def contactsWindow(email: str):
@@ -18,7 +18,7 @@ def contactsWindow(email: str):
     userID = findUserID(email)
     userPayload = getUserInfo(userID)
 
-    print(f"contactsWindowPayload: {userPayload}")
+    print(userPayload)
 
     # centering the window
     contactsWindowWidth = 1000  # width of the window
@@ -145,38 +145,19 @@ def contactsWindow(email: str):
 
     previewMessage.configure(state="disabled")
 
-    def preeviewMessageEvent(event):
-        """
-        This function is used to display the preview message of the selected contact.
-
-        :param event: event
-        """
-
-        if len(listUsers.curselection()) == 0:
-            previewTitleContent.configure(text="Select a contact to preview the title")
-            previewMessage.configure(state="normal")
-            previewMessage.delete("1.0", "end")
-            previewMessage.insert("end", "Select a contact to preview the message")
-            previewMessage.configure(state="disabled")
-
-            return
-
-        # getting the contact selected
-        contact = contacts[listUsers.curselection()[0]]
-
-        # inserting the title of the contact in the preview title
-        previewTitleContent.configure(text=contact["title"])
-
-        # inserting the message of the contact in the preview message
-        previewMessage.configure(state="normal")
-        previewMessage.delete("1.0", "end")
-        previewMessage.insert("end", contact["message"])
-        previewMessage.configure(state="disabled")
-
-    listUsers.bind("<<ListboxSelect>>", preeviewMessageEvent)
-
-    # --------------------- -Events----------------------------
-
+    # --------------------- -Events------------------------------------------------
     # event when opening the window
-    _contactsWindow_.bind("<FocusIn>", lambda event: preeviewMessageEvent(event))
+    _contactsWindow_.bind(
+        "<FocusIn>",
+        lambda event: preeviewMessageEvent(
+            event, listUsers, contacts, previewTitleContent, previewMessage
+        ),
+    )
+    listUsers.bind(
+        "<<ListboxSelect>>",
+        lambda event: preeviewMessageEvent(
+            event, listUsers, contacts, previewTitleContent, previewMessage
+        ),
+    )
+
     _contactsWindow_.grab_set()
