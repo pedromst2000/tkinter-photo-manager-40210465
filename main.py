@@ -1,3 +1,8 @@
+# from windows.Profile.profileWindow import albunsProfileWindow
+
+# if __name__ == "__main__":
+#     albunsProfileWindow("pedromst@gmail.com")
+
 from tkinter import Tk, Canvas, Button, NW
 from PIL import ImageTk, Image
 from styles.colors import *

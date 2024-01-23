@@ -75,7 +75,8 @@ class Database:
                     "avatar": user[4],  # string
                     "role": user[5],  # string
                     "followers": int(user[6]),  # integer
-                    "isBlocked": user[7].strip("\n").replace(" ", "")
+                    "photos": int(user[7]),  # integer
+                    "isBlocked": user[8].strip("\n").replace(" ", "")
                     == "True",  # boolean
                 }
             )
@@ -149,14 +150,14 @@ class Database:
 
             self.photos.append(
                 {
-                    "photoID": int(photo[0]),  # integer
+                    "photoID": photo[0],  # integer
                     "description": photo[1],  # string
                     "publishedDate": photo[2],  # string
                     "image": photo[3],  # string
                     "likes": int(photo[4]),  # integer
                     "views": int(photo[5]),  # integer
                     "rating": int(photo[6]),  # integer
-                    "categoryID": photo[7],  # integer
+                    "categoryID": int(photo[7]),  # integer
                     "albumID": int(photo[8].strip("\n")),  # integer
                 }
             )
@@ -192,9 +193,9 @@ class Database:
             self.comments.append(
                 {
                     "commentID": int(comment[0]),  # integer
-                    "authorID": comment[1],  # integer
+                    "authorID": int(comment[1]),  # integer
                     "comment": comment[2],  # string
-                    "photoID": comment[3].strip("\n"),  # integer
+                    "photoID": int(comment[3].strip("\n")),  # integer
                 }
             )
 
@@ -229,7 +230,7 @@ class Database:
                 {
                     "albumID": int(album[0]),  # integer
                     "name": album[1],  # string
-                    "creatorID": album[2].strip("\n"),  # integer
+                    "creatorID": int(album[2].strip("\n")),  # integer
                 }
             )
 
@@ -262,7 +263,7 @@ class Database:
             self.favorites.append(
                 {
                     "albumID": int(favorite[0]),  # integer
-                    "userID": favorite[1].strip("\n"),  # integer
+                    "userID": int(favorite[1].strip("\n")),  # integer
                 }
             )
 
@@ -299,7 +300,7 @@ class Database:
                     "contactID": int(contact[0]),  # integer
                     "title": contact[1],  # string
                     "message": contact[2],  # string
-                    "userID": contact[3].strip("\n"),  # integer
+                    "userID": int(contact[3].strip("\n")),  # integer
                 }
             )
 
@@ -337,6 +338,7 @@ class Database:
             "avatar": user.avatar,
             "role": user.role,
             "followers": user.followers,
+            "photos": user.photos,
             "isBlocked": user.isBlocked,
         }
 
@@ -344,7 +346,7 @@ class Database:
         self.users.append(new_user)
 
         file.write(
-            f"\n{new_user['userID']};{new_user['username']};{new_user['email']};{new_user['password']};{new_user['avatar']};{new_user['role']};{new_user['followers']};{new_user['isBlocked']}"
+            f"\n{new_user['userID']};{new_user['username']};{new_user['email']};{new_user['password']};{new_user['avatar']};{new_user['role']};{new_user['followers']};{new_user['photos']};{new_user['isBlocked']}"
         )
         file.close()
 
@@ -502,7 +504,7 @@ class Database:
         self.albuns.append(new_album)
 
         file.write(
-            f"{new_album['albumID']};{new_album['name']};{new_album['creatorID']}\n"
+            f"\n{new_album['albumID']};{new_album['name']};{new_album['creatorID']}"
         )
 
         file.close()
@@ -603,72 +605,52 @@ class Database:
         file = open("files/users.txt", "w+", encoding="utf-8")
 
         for line in lines:
-            # update by the email or username
+            # updating by username
             if line.split(";")[1] == user.username:
                 file.write(
-                    f"{user.userID};{user.username};{user.email};{user.password};{user.avatar};{user.role};{user.followers};{user.isBlocked}\n"
+                    f"{user.userID};{user.username};{user.email};{user.password};{user.avatar};{user.role};{user.followers};{user.photos};{user.isBlocked}\n"
                 )
             else:
                 file.write(line)
 
         file.close()
 
-    def update_photo(self, photo: dict) -> dict:  # update a photo in the database
-        """
-        Update a photo in the database.
-
-        :param photo: Dictionary containing the photo data.
-
-        :return: Dictionary containing the photo data.
-
-        """
-
-        file = open("files/photos.txt", "r", encoding="utf-8")
-
-        lines = file.readlines()
-
-        file.close()
-
-        file = open("files/photos.txt", "w+", encoding="utf-8")
-
-        for line in lines:
-            if line.split(";")[0] != photo.photoID:
-                file.write(line)
-
-            else:
-                file.write(line)
-
-        file.close()
-
-        return photo
-
-    def update_album(self, album: dict) -> dict:  # update a album in the database
+    def update_album(
+        self,
+        album: dict,
+        updated_album: dict,
+    ) -> dict:  # update a user in the database
         """
         Update a album in the database.
 
         :param album: Dictionary containing the album data.
+        :param updated_album: Dictionary containing the updated album data.
 
         :return: Dictionary containing the album data.
+
         """
+        file_path = "files/albuns.txt"
 
-        file = open("files/albuns.txt", "r", encoding="utf-8")
+        with open(file_path, "r", encoding="utf-8") as file:
+            lines = file.readlines()
 
-        lines = file.readlines()
+        with open(file_path, "w", encoding="utf-8") as file:
+            for line in lines:
+                parts = line.split(";")
+                if (
+                    len(parts) > 0 and parts[0].isdigit()
+                ):  # if the line starts with a number
+                    current_album_id = int(parts[0])
+                    if current_album_id == updated_album["albumID"]:
+                        file.write(
+                            f"{updated_album['albumID']};{updated_album['name']};{updated_album['creatorID']}\n"
+                        )
+                    else:
+                        file.write(line)
+                else:
+                    file.write(line)
 
-        file.close()
-
-        file = open("files/albuns.txt", "w+", encoding="utf-8")
-
-        for line in lines:
-            if line.split(";")[0] != album.albumID:
-                file.write(line)
-
-            else:
-                file.write(line)
-
-        file.close()
-
-        return album
+        return updated_album
 
     def delete_category(
         self, category: dict
@@ -688,7 +670,9 @@ class Database:
             lines = file.readlines()
 
         for line in lines:
-            if line.split(";")[1].strip() != category.category:
+            if (
+                line.split(";")[1].strip() != category.category
+            ):  # if the category is not the one to be deleted
                 temp_lines.append(line)
 
         with open(file_path, "w", encoding="utf-8") as file:
@@ -703,49 +687,48 @@ class Database:
         :return: None.
         """
 
-        file = open("files/photos.txt", "r", encoding="utf-8")
+        file_path = "files/photos.txt"
+        temp_lines = []  # temporary list to store the lines
 
-        lines = file.readlines()
-
-        file.close()
-
-        file = open("files/photos.txt", "w+", encoding="utf-8")
+        with open(file_path, "r", encoding="utf-8") as file:
+            lines = file.readlines()
 
         for line in lines:
-            if line.split(";")[0] != photo.photoID:
-                file.write(line)
+            if (
+                line.split(";")[0].strip() != photo.photoID
+            ):  # if the category is not the one to be deleted
+                temp_lines.append(line)
 
-            else:
-                file.write(line)
+        with open(file_path, "w", encoding="utf-8") as file:
+            file.writelines(temp_lines)
 
-        file.close()
-
-    def delete_user(self, user: dict) -> None:
+    def delete_photos_onCascade(
+        *photosIDs: list,
+    ) -> None:  # delete a photo from the database
         """
-        Delete a user from the database.
+        Delete all photos from a category in the database.
 
-        :param user: Dictionary containing the user data.
+        :param photo: Dictionary containing the photo data.
+        :param photoID: List of photo IDs to be deleted.
 
         :return: None.
-
         """
+        # deleting the photos associated with the photoID´s
+        file_path = "files/photos.txt"
 
-        file = open("files/users.txt", "r", encoding="utf-8")
+        temp_lines = []  # temporary list to store the lines
 
-        lines = file.readlines()
-
-        file.close()
-
-        file = open("files/users.txt", "w+", encoding="utf-8")
+        with open(file_path, "r", encoding="utf-8") as file:
+            lines = file.readlines()
 
         for line in lines:
-            if line.split(";")[0] != user.userID:
-                file.write(line)
+            if (
+                line.split(";")[0].strip() not in photosIDs
+            ):  # if the photo is not the one to be deleted
+                temp_lines.append(line)
 
-            else:
-                file.write(line)
-
-        file.close()
+        with open(file_path, "w", encoding="utf-8") as file:
+            file.writelines(temp_lines)
 
     def delete_favorite(self, favorite: dict) -> None:
         """

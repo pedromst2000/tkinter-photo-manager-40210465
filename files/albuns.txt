@@ -5,3 +5,4 @@ albumID;name;creatorID
 4;joao album;3
 5;ana album;4
 6;katrine album;5
+7;soccer teams;2

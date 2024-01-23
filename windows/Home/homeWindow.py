@@ -7,12 +7,11 @@ from classes.Menu import menu
 
 def homeWindow(email: str, isLogged: bool, isNewUser: bool) -> None:
     """
-    This function is used to create the home window.
+        This function is used to create the home window.
 
-    :param email: str
-    :param isLogged: bool
-    :param isNewUser: bool
-
+        :param email: str
+        :param isLogged: bool
+        :param isNewUser: bool
     :return: None
 
     """
@@ -73,9 +72,9 @@ def homeWindow(email: str, isLogged: bool, isNewUser: bool) -> None:
         and userPayload["role"] == "regular"
         or userPayload["role"] == "unsigned"
     ):
-        _menu_.regularMenu()
+        _menu_.regularMenu(email)
 
     if isLogged and userPayload["role"] == "admin":
-        _menu_.adminMenu()
+        _menu_.adminMenu(email)
 
     _homeWindow_.mainloop()

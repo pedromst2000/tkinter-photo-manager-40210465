@@ -40,27 +40,27 @@ favorite album - new photo added to a favorite album
 [X] - Should be possibile to navigate to register window from login window.
 [X] - Should be possible to navigate to login window from register window.
 [X] - Restrict access to the app if the user is not authenticated.
-[] - If the logged user is blocked should display an Account Suspension Notice.
+[X] - If the logged user is blocked should display an Account Suspension Notice.
 [] - Blocked User should have the possibility to contact the admin to try unblock the account.
 [X] - Restrict acess to some features, each only admin can access - Manage Users, Manage Categories, Manage Notifications.
 [] - Unsigned User can access all the features but have limited access in the catalog of content, each means, can only view the feature photos (top 5 - most liked photos)
 
 ## ALL USERS - Profile
 
-[] - An user should have an avatar.
+[X] - An user should have an avatar.
 [] - Should have the possibility of updating his avatar.
 [] - An user should have the possibility to chance his password access.
-[] - An user should have the possibility to delete his own account from the app.
-[] - Should have access to the dashboard window.
-[] - Display the albuns availabe of the user.
-[] - Change the name of an album.
-[] - Number of followers.
+[X] - An user should be possible to create an album of photos.
+[X] - Display the albuns availabe of the user.
+[X] - Change the name of an album.
+[X] - Number of followers.
+[X] - Delete content (only is possible to delete content created by the user). - delete photo from an album
 [] - Display favorite albuns.
+[] - For the admin profile should display the list of contacts of banned users.
 
 ## ALL USERS - Manage Content
 
 [] - Add content with short description (max 150chars), date of published, a category associated and an image(Photo). - Add Photo to an album
-[] - An user should be possible to create an album of photos.
 [] - Should display "gallery" of random photos in the catalog.
 [] - Should be possible to see the detail of a clicked photo from the "gallery" :
 
@@ -82,8 +82,6 @@ favorite album - new photo added to a favorite album
 - button (like)
 - button ( add comment )
 - see threat of comments
-  [] - Delete content (only is possible to delete content created by the user). - delete photo from an album
-  [] - Can update a content by updating or changing the image and/or description. - update photo from an album
 
 ## ALL USERS - Filter Content
 
@@ -99,10 +97,3 @@ favorite album - new photo added to a favorite album
 [] - Each photo should have a thread of comments.
 [] - Should sent a notification if a user interact (reply of a comment)
 [] - The users can reply to previous comments.
-
-## USER DASHBOARD
-
-[] - Should display the number of comments on the app.
-[] - Should display the total number of views of contents in the app.
-[] - Should display the number of albuns created.
-[] - Should display the number of images created by category.

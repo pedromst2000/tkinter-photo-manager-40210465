@@ -273,12 +273,9 @@ def checkLogin(email: str, password: str, loginWindow: object, Window: object) -
 
         loginWindow.destroy()  # destroy the login window
         Window.destroy()
-        # homeWindow(email, isLogged, isNewUser)  # open the home window
-    # render conditional home window
-    if userPayload["isBlocked"] == True:
-        homeBannedWindow(email)
-    else:
-        homeWindow(email, isLogged, isNewUser)
+        homeWindow(email, isLogged, isNewUser) if userPayload[
+            "isBlocked"
+        ] == False else homeBannedWindow(email)
 
 
 def openSignUpLink(event: object, loginWindow: object, window: object) -> None:

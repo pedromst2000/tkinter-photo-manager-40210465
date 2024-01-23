@@ -9,6 +9,7 @@ class Photo:
     image = ""
     likes = 0
     views = 0
+    rating = 0
     categoryID = 0
     albumID = 0
 
@@ -93,7 +94,7 @@ class Photo:
         )
         db.create_photo(self)
 
-    def update_photo(self):
+    def update_photo(self, updated_photo):
         """
         Method to update an instance of the Class Photo
 
@@ -110,7 +111,7 @@ class Photo:
             favorites=[],
             contacts=[],
         )
-        db.update_photo(self)
+        db.update_photo(self, updated_photo)
 
     def delete_photo(self):
         """

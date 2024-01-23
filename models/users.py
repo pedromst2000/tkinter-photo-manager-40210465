@@ -44,13 +44,15 @@ def register(
     """
     # if the email and the username doesn't exist, create the user
     User(
-        username,
-        email,
-        password,
-        "unsigned",
-        0,
-        "assets/images/profile_avatars/default_avatar.jpg",
-        False,
+        userID=0,
+        username=username,
+        email=email,
+        password=password,
+        avatar="assets/images/profile_avatars/default_avatar.jpg",
+        role="unsigned",
+        followers=0,
+        photos=0,
+        isBlocked=False,
     ).add_user()  # add new instance of the user to the database
 
     return True  # return True if the user was created successfully
@@ -201,27 +203,6 @@ def changePassword(userID: int, newPassword: str) -> bool:
     return False  # return False if the password wasn't updated successfully
 
 
-def deleteAccount(userID: int) -> bool:
-    """
-    Function to delete the account of the user
-
-    :param userID: int
-
-    :return: bool
-
-    """
-
-    users = User().get_users()
-
-    for user in users:
-        if user["userID"] == userID:
-            User().delete_user()  # delete the user from the database
-
-            return True  # return True if the user was deleted successfully
-
-    return False  # return False if the user wasn't deleted successfully
-
-
 def get_users_list() -> list:
     """
     Function to get the list of all users with partial information :
@@ -264,9 +245,10 @@ def change_role(username: str, new_role: str) -> bool:
                 user["username"],
                 user["email"],
                 user["password"],
+                user["avatar"],
                 user["role"],
                 user["followers"],
-                user["avatar"],
+                user["photos"],
                 user["isBlocked"],
             )
             user.update_user()
@@ -294,9 +276,10 @@ def block_user(username: str) -> bool:
                 user["username"],
                 user["email"],
                 user["password"],
+                user["avatar"],
                 user["role"],
                 user["followers"],
-                user["avatar"],
+                user["photos"],
                 user["isBlocked"],
             )
             user.update_user()
@@ -325,9 +308,10 @@ def unblock_user(username: str) -> bool:
                 user["username"],
                 user["email"],
                 user["password"],
+                user["avatar"],
                 user["role"],
                 user["followers"],
-                user["avatar"],
+                user["photos"],
                 user["isBlocked"],
             )
             user.update_user()
@@ -350,9 +334,7 @@ def filter_users(username: str, email: str) -> list:
     users = User().get_users()
 
     # Admin cannot be filtered
-    filteredUsers = [
-        user for user in users if user["role"] != "admin"
-    ]
+    filteredUsers = [user for user in users if user["role"] != "admin"]
 
     # filter by username
     if username != "":

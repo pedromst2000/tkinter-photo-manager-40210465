@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox, Canvas, Label, Entry, Button, NW
 from PIL import ImageTk, Image
-from models.users import register, checkSignUpEmail, checkSignUpUsername, getUserInfo
+from models.users import register, checkSignUpEmail, checkSignUpUsername
 from styles.colors import colors
 from styles.fonts import quickSandBold, quickSandRegular
 from windows.Home.homeWindow import homeWindow

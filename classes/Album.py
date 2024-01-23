@@ -8,22 +8,16 @@ class Album:
     creatorID = 0
 
     # constructor
-    def __init__(
-        self,
-        albumID: int = 0,
-        name: str = "",
-        creatorID: int = 0,
-    ) -> None:
+    def __init__(self, albumID: int = 0, name: str = "", creatorID: int = 0):
         """
         constructor of the Class Album
 
-        optional fields if nothing is passed, the default value is used
+        optional params: albumID, name, creatorID (default=None)
 
-        :param albumID: int (optional, default=0)
-        :param name: str (optional, default="")
-        :param creatorID: int (optional, default=0)
+        :param albumID: int
+        :param name: str
+        :param creatorID: int
 
-        :return: None
         """
 
         self.albumID = albumID
@@ -70,10 +64,11 @@ class Album:
         )
         db.create_album(self)
 
-    def update_album(self):
+    def update_album(self, updated_album: dict):
         """
         Method to update an instance of the Class Album
 
+        :param albumID: int
         :return: None
 
         """
@@ -87,4 +82,4 @@ class Album:
             favorites=[],
             contacts=[],
         )
-        db.update_album(self)
+        db.update_album(self, updated_album)

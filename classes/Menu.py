@@ -1,6 +1,11 @@
 import tkinter as tk
 from PIL import ImageTk, Image
-from navigation import navigate
+from windows.Explore.exploreWindow import exploreWindow
+from windows.Profile.profileWindow import profileWindow
+from windows.Notifications.notificationsWindow import notificationsWindow
+from windows.Dashboard.dashboardWindow import dashboardWindow
+from windows.Manage.manageWindow import manageWindow
+from windows.Settings.settingsWindow import settingsWindow
 
 
 class menu:
@@ -151,9 +156,13 @@ class menu:
     # ---------------------------------------------------
     # Methods
 
-    def regularMenu(self):
+    def regularMenu(self, email: str) -> None:
         """
         This method is used to create the regular menu options.
+
+        :param email: str
+        :param Window: object
+
         """
 
         for i, opt in enumerate(self.menuOpts["regular"]):
@@ -163,16 +172,16 @@ class menu:
             )
 
             if i == 0:
-                opt.bind("<Button-1>", lambda e: navigate["explore"]())
+                opt.bind("<Button-1>", lambda e: exploreWindow(email))
 
             elif i == 1:
-                opt.bind("<Button-1>", lambda e: navigate["profile"]())
+                opt.bind("<Button-1>", lambda e: profileWindow(email))
 
             elif i == 2:
-                opt.bind("<Button-1>", lambda e: navigate["notifications"]())
+                opt.bind("<Button-1>", lambda e: notificationsWindow(email))
 
             elif i == 3:
-                opt.bind("<Button-1>", lambda e: navigate["dashboard"]())
+                opt.bind("<Button-1>", lambda e: dashboardWindow(email))
 
             elif i == 4:
                 opt.bind(
@@ -180,9 +189,13 @@ class menu:
                     lambda e: self.homeWindow.destroy(),
                 )
 
-    def adminMenu(self):
+    def adminMenu(self, email: str) -> None:
         """
         This method is used to create the admin menu options.
+
+        :param email: str
+        :param Window: object
+
         """
 
         for i, opt in enumerate(self.menuOpts["admin"]):
@@ -192,22 +205,22 @@ class menu:
             )
 
             if i == 0:
-                opt.bind("<Button-1>", lambda e: navigate["explore"]())
+                opt.bind("<Button-1>", lambda e: exploreWindow(email))
 
             elif i == 1:
-                opt.bind("<Button-1>", lambda e: navigate["profile"]())
+                opt.bind("<Button-1>", lambda e: profileWindow(email))
 
             elif i == 2:
-                opt.bind("<Button-1>", lambda e: navigate["notifications"]())
+                opt.bind("<Button-1>", lambda e: notificationsWindow(email))
 
             elif i == 3:
-                opt.bind("<Button-1>", lambda e: navigate["settings"]())
+                opt.bind("<Button-1>", lambda e: settingsWindow())
 
             elif i == 4:
-                opt.bind("<Button-1>", lambda e: navigate["manage"]())
+                opt.bind("<Button-1>", lambda e: manageWindow())
 
             elif i == 5:
-                opt.bind("<Button-1>", lambda e: navigate["dashboard"]())
+                opt.bind("<Button-1>", lambda e: dashboardWindow(email))
 
             elif i == 6:
                 opt.bind(

@@ -1,4 +1,6 @@
 from classes.Category import Category
+from classes.Photo import Photo
+from database import Database
 
 
 def get_categories() -> list:
@@ -46,6 +48,7 @@ def delete_category(categoryName: str) -> bool:
     """
 
     categories = Category().get_categories()
+    photos = Photo().get_photos()
 
     for category in categories:
         if category["category"] == categoryName:
@@ -55,6 +58,20 @@ def delete_category(categoryName: str) -> bool:
             )
             category.delete_category()
 
-            return True  # return True if the category was deleted successfully
+            # finding the id of the category by the name of the category
+            categoryID = [
+                category["categoryID"]
+                for category in categories
+                if category["category"] == categoryName
+            ][0]
+            # removing the photos associated with the category
+            for photo in photos:
+                photo_ids_to_delete = [
+                    photo["photoID"]
+                    for photo in photos
+                    if photo["categoryID"] == categoryID
+                ]
 
-    return False  # return False if the category wasn't deleted successfully
+            Database().delete_photos_onCascade(*photo_ids_to_delete)
+
+    return True

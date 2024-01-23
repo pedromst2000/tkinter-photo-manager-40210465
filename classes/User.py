@@ -10,6 +10,7 @@ class User:
     avatar = ""
     role = ""
     followers = 0
+    photos = 0
     isBlocked = False
 
     # constructor
@@ -19,9 +20,10 @@ class User:
         username: str = "",
         email: str = "",
         password: str = "",
+        avatar: str = "",
         role: str = "",
         followers: int = 0,
-        avatar: str = "",
+        photos: int = 0,
         isBlocked: bool = False,
     ) -> None:
         """
@@ -34,9 +36,10 @@ class User:
         :param username: str (optional, default="")
         :param email: str (optional, default="")
         :param password: str (optional, default="")
+        :param avatar: str (optional, default="")
         :param role: str (optional, default="")
         :param followers: int (optional, default=0)
-        :param avatar: str (optional, default="")
+        :param photos: int (optional, default=0)
         :param isBlocked: bool (optional, default=False)
 
         :return: None
@@ -49,6 +52,7 @@ class User:
         self.avatar = avatar
         self.role = role
         self.followers = followers
+        self.photos = photos
         self.isBlocked = isBlocked
 
     # methods
@@ -75,8 +79,6 @@ class User:
         """
         Method to add new instance of the Class User
 
-        :return: None
-
         """
 
         db = Database(
@@ -94,7 +96,6 @@ class User:
         """
         Method to update an instance of the Class User
 
-        :return: None
 
         """
 
@@ -108,22 +109,3 @@ class User:
             contacts=[],
         )
         db.update_user(self)
-
-    def delete_user(self):
-        """
-        Method to delete an instance of the Class User
-
-        :return: None
-
-        """
-
-        db = Database(
-            users=[],
-            categories=[],
-            photos=[],
-            comments=[],
-            albuns=[],
-            favorites=[],
-            contacts=[],
-        )
-        db.delete_user(self)

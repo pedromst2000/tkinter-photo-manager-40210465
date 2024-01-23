@@ -1,6 +1,6 @@
 import tkinter as tk
 import tkinter.ttk as ttk
-from tkinter import Canvas, Entry, Button, NW, CENTER, messagebox
+from tkinter import Canvas, Entry, Button, NW, CENTER, messagebox, Scrollbar
 from PIL import ImageTk, Image
 from styles.colors import colors
 from styles.fonts import quickSandBold
@@ -47,7 +47,7 @@ def manageWindow():
     _manageWindow_ = tk.Toplevel()
 
     # centering the window
-    manageWindowWidth = 1449  # width of the window
+    manageWindowWidth = 1349  # width of the window
     manageWindowHeight = 678  # height of the window
 
     screenWidth = _manageWindow_.winfo_screenwidth()  # width of the screen
@@ -357,6 +357,13 @@ def manageWindow():
 
     usersTable.place(x=10, y=200)
 
+    # adding a scrollbar to the treeview
+    scrollbar = Scrollbar(_manageWindow_, orient="vertical", command=usersTable.yview)
+
+    usersTable.configure(yscrollcommand=scrollbar.set)
+
+    scrollbar.place(x=695, y=200, height=328)
+
     # inserting the users into the treeview
     insert_users(users, usersTable)
     # -------------------------------------------------------------------------
@@ -365,13 +372,22 @@ def manageWindow():
     categoriesList = tk.Listbox(
         _manageWindow_,
         width=30,
-        height=15,
+        height=12,
         font=quickSandBold(12),
         highlightthickness=0,
         cursor="hand2",
     )
 
-    categoriesList.place(x=900, y=100)
+    # adding a scrollbar to the listbox
+    scrollbar = Scrollbar(
+        _manageWindow_, orient="vertical", command=categoriesList.yview
+    )
+
+    categoriesList.config(yscrollcommand=scrollbar.set)
+
+    scrollbar.place(x=1190, y=120, height=300)
+
+    categoriesList.place(x=900, y=120)
 
     addIcon = ImageTk.PhotoImage(
         Image.open("assets/images/UI_Icons/Add_Icon.png").resize((35, 35))
@@ -396,7 +412,7 @@ def manageWindow():
         border=0,
         image=addIcon,
     )
-    btnAddCategory.place(x=950, y=500)
+    btnAddCategory.place(x=950, y=460)
     btnAddCategory.bind("<Enter>", lambda e: button_on_enter(e, btnAddCategory))
     btnAddCategory.bind("<Leave>", lambda e: button_on_leave(e, btnAddCategory))
 
@@ -415,7 +431,7 @@ def manageWindow():
         image=removeIcon,
     )
 
-    btnDeleteCategory.place(x=950, y=570)
+    btnDeleteCategory.place(x=950, y=550)
     btnDeleteCategory.bind("<Enter>", lambda e: button_on_enter(e, btnDeleteCategory))
     btnDeleteCategory.bind("<Leave>", lambda e: button_on_leave(e, btnDeleteCategory))
 
