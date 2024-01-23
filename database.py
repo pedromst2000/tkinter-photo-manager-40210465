@@ -39,6 +39,7 @@ class Database:
         self.contacts = contacts
 
     # methods
+
     def get_users(self) -> list:
         """
         Retrieve user data from 'users.txt' and return a list of user objects.
@@ -84,6 +85,52 @@ class Database:
         file.close()
 
         return self.users
+
+    def get_user(self, userID: int) -> dict:
+        """
+        Retrieve user data from 'users.txt' and return a user object.
+
+        Each user object includes:
+        - userID: Unique identifier (int).
+        - username: User's username (str).
+        - email: User's email address (str).
+        - password: User's password (str).
+        - avatar: File path or URL for user's avatar (str).
+        - role: User's role ('admin', 'regular', 'unsigned') (str).
+        - followers: user's followers (int).
+        - isBlocked: Indicates if the user is blocked (bool).
+
+        :param userID: Unique identifier (int).
+
+        :return: Dictionary containing the user data.
+        """
+
+        file = open("files/users.txt", "r", encoding="utf-8")
+
+        lines = file.readlines()
+
+        for line in lines:
+            user = line.split(";")
+
+            # ignoring the first line
+            if user[0] == "userID":
+                continue
+
+            if int(user[0]) == userID:
+                return {
+                    "userID": int(user[0]),  # integer
+                    "username": user[1],  # string
+                    "email": user[2],  # string
+                    "password": user[3],  # string
+                    "avatar": user[4],  # string
+                    "role": user[5],  # string
+                    "followers": int(user[6]),  # integer
+                    "photos": int(user[7]),  # integer
+                    "isBlocked": user[8].strip("\n").replace(" ", "")
+                    == "True",  # boolean
+                }
+
+        file.close()
 
     def get_categories(self) -> list:
         """
@@ -305,9 +352,9 @@ class Database:
                 }
             )
 
-            file.close()
+        file.close()
 
-            return self.contacts
+        return self.contacts
 
     def create_user(self, user: dict) -> dict:  # add a new user to the database
         """

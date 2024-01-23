@@ -75,6 +75,26 @@ class User:
         )
         return db.get_users()
 
+    def get_user(self, userID: int):
+        """
+        Method to get an instance of the Class User
+
+        :param userID: int
+
+        :return: User
+
+        """
+        db = Database(
+            users=[],
+            categories=[],
+            photos=[],
+            comments=[],
+            albuns=[],
+            favorites=[],
+            contacts=[],
+        )
+        return db.get_user(userID)
+
     def add_user(self):
         """
         Method to add new instance of the Class User

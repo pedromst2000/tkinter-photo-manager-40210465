@@ -9,14 +9,18 @@ class Contact:
     userID = 0
 
     # constructor
-    def __init__(self, contactID: int, title: str, message: str, userID: int) -> None:
+    def __init__(
+        self, contactID: int = 0, title: str = "", message: str = "", userID: int = 0
+    ) -> None:
         """
         constructor of the Class Contact
 
-        :param contactID: int
-        :param title: str
-        :param message: str
-        :param userID: int
+        # Optional parameters
+
+        :param contactID: int (default = 0)
+        :param title: str (default = "")
+        :param message: str (default = "")
+        :param userID: int (default = 0)
 
         :return: None
         """

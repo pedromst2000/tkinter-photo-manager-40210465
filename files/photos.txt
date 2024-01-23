@@ -5,7 +5,6 @@ photoID;description;publishedDate;image;likes;views;rating;categoryID;albumID
 4;An urban street mural depicting vibrant and abstract forms, adding a splash of color to the cityscape.;05/12/2023;assets\images\photos_gallery\Art_photo_1.jpg;430;750;8;4;5
 5;Exploring the streets of Tokyo during cherry blossom season, with the iconic sakura trees in full bloom.;23/05/2023;assets/images/photos_gallery/Travel_Adventure_photo_2.jpg;120;220;5;1;1
 6;A field of vibrant wildflowers in full bloom, creating a colorful carpet under the open blue sky.;14/01/2024;assets/images/photos_gallery/Nature_photo_2.jpg;700;1200;9;2;5
-7;A determined marathon runner crossing the finish line, arms raised in triumph, surrounded by cheering spectators.;05/02/2023;assets/images/photos_gallery/Sports_photo_2.jpg;90;40;4;3;4
 8;Close-up of an artist's hands at work, capturing the intricate details of the creation process.;23/05/2023;assets/images/photos_gallery/Art_photo_2.jpg;450;540;7;4;6
 9;Relaxing on a pristine beach in Bali, toes in the sand, and a panoramic view of the turquoise ocean.;12/04/2023;assets/images/photos_gallery/Travel_Adventure_photo_3.jpg;240;310;5;1;1
 10;A serene lake surrounded by lush greenery, reflecting the towering mountains in its crystal-clear waters.;06/07/2023;assets/images/photos_gallery/Nature_photo_3.jpg;30;760;4;2;6
