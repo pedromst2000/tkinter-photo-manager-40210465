@@ -80,6 +80,7 @@ pip install Pillow
 ```bash
 python main.py
 ```
+## Remember that you should run the terminal inside the directory of the app, atleast to run the app.
 
 ### THAT'S IT! 🎉 Now you can enjoy PhotoShow and all its features!
 
